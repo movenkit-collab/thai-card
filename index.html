@@ -2,147 +2,122 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>泰语全体系学习卡</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>泰语学习卡</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html,body{height:100%;overflow:hidden}
-        body { font-family: 'Leelawadee UI', 'Thonburi', 'Tahoma', 'PingFang SC', sans-serif; background: #f4f7f9; display: flex; flex-direction: column; align-items: center; padding: 8px; }
-        .container { width: 100%; max-width: 450px; display: flex; flex-direction: column; align-items: center; flex: 1; overflow-y: auto; -webkit-overflow-scrolling:touch; }
-        .stats-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; background: white; padding: 6px 12px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 6px; flex-shrink:0; }
-        .stat-item { text-align: center; flex: 1; }
-        .stat-num { font-size: 16px; font-weight: bold; color: #1a73e8; }
-        .stat-label { font-size: 9px; color: #999; }
-        .streak-badge { background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: bold; }
-        .filter-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; margin-bottom: 6px; background: white; padding: 6px; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); width: 100%; flex-shrink:0; }
-        .filter-btn { padding: 6px 4px; border: 1px solid #eee; border-radius: 6px; background: #fff; cursor: pointer; font-size: 9px; font-weight: bold; flex: 1 1 18%; min-width: 50px; }
-        .filter-btn.active { background: #1a73e8; color: white; border-color: #1a73e8; }
-        .filter-row { display: flex; gap: 4px; width: 100%; margin-bottom: 6px; flex-shrink:0; }
-        .filter-row button { flex: 1; padding: 4px; border: 1px solid #eee; border-radius: 6px; background: white; cursor: pointer; font-size: 10px; color: #666; }
-        .filter-row button.active { background: #fff3cd; color: #856404; }
-        .card-area { perspective: 1000px; width: 100%; height: 55vh; cursor: pointer; margin-bottom: 6px; flex-shrink:0; }
-        .card { position: relative; width: 100%; height: 100%; transition: transform 0.4s; transform-style: preserve-3d; border-radius: 16px; }
-        .card.flipped { transform: rotateY(180deg); }
-        .face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 16px; padding: 10px; background: white; border: 1px solid #eee; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
-        .back { transform: rotateY(180deg); background: #fcfcfd; justify-content: space-evenly; }
-        .card-header { position: absolute; top: 8px; left: 8px; right: 8px; display: flex; justify-content: space-between; }
-        .tag { font-size: 10px; padding: 3px 8px; border-radius: 6px; color: white; font-weight: bold; }
-        .star-btn { background: none; border: none; font-size: 18px; cursor: pointer; }
-        .main-char { font-size: 18vw; color: #333; }
-        .card-hint { font-size: 10px; color: #bbb; }
-        .p-text { font-size: 22px; color: #1a73e8; font-weight: bold; display: flex; align-items: center; gap: 6px; }
-        .tone-icon { font-size: 11px; background: #e1ecf4; padding: 2px 4px; border-radius: 4px; color: #1a73e8; }
-        .type-tag { font-size: 11px; color: #e67e22; font-weight: bold; }
-        #tone-box { margin: 3px 0; }
-        .tone-table { width: 100%; border-collapse: collapse; font-size: 9px; background: white; }
-        .tone-table th, .tone-table td { padding: 3px 1px; border: 1px solid #ddd; text-align: center; }
-        .tone-table th { background: #f0f0f0; }
-        .highlight-tone { color: #dc3545; font-weight: bold; }
-        .kbd { font-size: 10px; color: #999; }
-        .pairs-row { display: flex; gap: 6px; justify-content: center; width: 100%; height: 65px; margin-bottom: 4px; flex-shrink:0; }
-        .pair-hint { flex: 1; max-width: 120px; background: white; border-radius: 10px; border: 2px dashed #ddd; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .pair-tag { font-size: 8px; color: #aaa; }
-        .pair-char { font-size: 24px; color: #333; margin-top: 4px; }
-        .pair-label { font-size: 8px; padding: 2px 4px; border-radius: 4px; color: white; margin-top: 4px; }
-        .mastery-bar { width: 100%; height: 4px; background: #eee; border-radius: 2px; margin-bottom: 4px; flex-shrink:0; }
-        .mastery-fill { height: 100%; border-radius: 2px; transition: width 0.5s; background: linear-gradient(90deg, #ff3107, #28a745); }
-        .progress { margin: 3px 0; color: #888; font-size: 11px; width: 100%; display: flex; justify-content: space-between; flex-shrink:0; }
-        .ctrl { display: flex; gap: 6px; width: 100%; flex-shrink:0; }
-        .ctrl button { flex: 1; padding: 9px; border: none; border-radius: 10px; background: #1a73e8; color: white; cursor: pointer; font-weight: bold; font-size: 13px; }
-        .mastery-btns { display: flex; gap: 6px; width: 100%; margin-top: 4px; flex-shrink:0; }
-        .mastery-btn { padding: 5px 8px; border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 11px; color: #666; }
-        .mastery-btn.m-0.selected { background: #dc3545; color: white; }
-        .mastery-btn.m-1.selected { background: #fd7e14; color: white; }
-        .mastery-btn.m-2.selected { background: #ff3107; color: white; }
-        .mastery-btn.m-3.selected { background: #28a745; color: white; }
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px); background: #333; color: white; padding: 8px 16px; border-radius: 8px; font-size: 12px; opacity: 0; transition: all 0.3s; z-index: 100; }
-        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        *{margin:0;padding:0;box-sizing:border-box}
+        html,body{height:100%;overflow:hidden;touch-action:manipulation}
+        body{font-family:'Leelawadee UI',Thonburi,Tahoma,sans-serif;background:#f4f7f9;display:flex;flex-direction:column;padding:4px}
+        .container{width:100%;max-width:400px;margin:0 auto;flex:1;display:flex;flex-direction:column;overflow:hidden}
+        .top{display:flex;gap:4px;align-items:center;margin-bottom:4px;flex-shrink:0}
+        .top>div{background:#fff;border-radius:6px;padding:4px 8px;font-size:11px;box-shadow:0 1px3px rgba(0,0,0,0.05)}
+        .top .streak{background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff;font-weight:bold;padding:4px 6px}
+        .nav{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;flex-shrink:0}
+        .nav button{flex:1 1 15%;min-width:40px;padding:4px 2px;font-size:9px;border:1px solid #eee;border-radius:4px;background:#fff;cursor:pointer}
+        .nav button.active{background:#1a73e8;color:#fff;border-color:#1a73e8}
+        .card{flex:1;position:relative;background:#fff;border-radius:10px;box-shadow:0 2px8px rgba(0,0,0,0.08);margin-bottom:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;cursor:pointer}
+        .card.flip{transform:rotateY(180deg)}
+        .card-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px}
+        .card-back{transform:rotateY(180deg);justify-content:space-around}
+        .main-char{font-size:60px;color:#333}
+        .hint{font-size:9px;color:#bbb;margin-top:4px}
+        .info{font-size:14px;color:#1a73e8;font-weight:bold;display:flex;align-items:center;gap:4px}
+        .tone{font-size:10px;background:#e1ecf4;padding:2px4px;border-radius:3px;color:#1a73e8}
+        .type{font-size:11px;color:#e67e22;font-weight:bold;margin:2px0}
+        .tone-table{width:95%;font-size:8px;border-collapse:collapse;margin:2px0}
+        .tone-table th,.tone-table td{padding:2px;border:1px solid #ddd;text-align:center}
+        .tone-table th{background:#f0f0f0}
+        .hl{color:#d32f2f;font-weight:bold}
+        .kbd{font-size:9px;color:#999}
+        .pairs{display:flex;gap:4px;margin-bottom:3px;flex-shrink:0}
+        .pair{flex:1;background:#fff;border-radius:6px;border:1px dashed #ddd;padding:2px;text-align:center;font-size:8px}
+        .pair .ch{font-size:16px;color:#333}
+        .mastery{display:flex;gap:3px;margin-bottom:3px;flex-shrink:0}
+        .mastery button{flex:1;padding:4px;font-size:10px;border:1px solid #ddd;border-radius:4px;background:#fff;cursor:pointer}
+        .mastery button:nth-child(1).sel{background:#dc3545;color:#fff}
+        .mastery button:nth-child(2).sel{background:#fd7e14;color:#fff}
+        .mastery button:nth-child(3).sel{background:#ff3107;color:#fff}
+        .mastery button:nth-child(4).sel{background:#28a745;color:#fff}
+        .bar{height:3px;background:#eee;border-radius:2px;margin-bottom:3px;flex-shrink:0}
+        .bar-fill{height:100%;background:linear-gradient(90deg,#ff3107,#28a745);border-radius:2px;transition:width .3s}
+        .bottom{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#888;margin-bottom:2px;flex-shrink:0}
+        .ctrl{display:flex;gap:4px;flex-shrink:0}
+        .ctrl button{flex:1;padding:6px;font-size:11px;border:none;border-radius:6px;background:#1a73e8;color:#fff;cursor:pointer}
+        .ctrl button:nth-child(2){background:#6f42c1}
         .c-mid{background:#28a745}.c-high{background:#dc3545}.c-low-p{background:#fd7e14}.c-low-s{background:#e67e22}.c-vs{background:#6f42c1}.c-vl{background:#17a2b8}
+        .toast{position:fixed;bottom:10px;left:50%;transform:translateX(-50%) translateY(60px);background:#333;color:#fff;padding:6px12px;border-radius:6px;font-size:11px;opacity:0;transition:all .3s;z-index:100}
+        .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="stats-bar">
-        <div class="stat-item"><div class="stat-num" id="s-today">0</div><div class="stat-label">今日</div></div>
-        <div class="stat-item"><div class="stat-num" id="s-total">0</div><div class="stat-label">总学习</div></div>
-        <div class="stat-item"><div class="stat-num" id="s-mastered">0</div><div class="stat-label">掌握</div></div>
-        <div class="streak-badge" id="s-streak">🔥0天</div>
+    <div class="top">
+        <div>今<span id="st">0</span></div>
+        <div>总<span id="ss">0</span></div>
+        <div>掌<span id="sm">0</span></div>
+        <div class="streak" id="sr">🔥0</div>
     </div>
-    <div class="filter-nav" id="filter-nav"></div>
-    <div class="filter-row">
-        <button id="f-starred" onclick="toggleStarFilter()">⭐</button>
-        <button id="f-weak" onclick="toggleWeakFilter()">👎</button>
-    </div>
-    <div class="card-area" onclick="flip()">
-        <div class="card" id="card">
-            <div class="face front">
-                <div class="card-header">
-                    <span id="label" class="tag"></span>
-                    <button class="star-btn" onclick="event.stopPropagation();toggleStar()"><span id="star-icon">⭐</span></button>
-                </div>
-                <div class="main-char" id="f-char"></div>
-                <div class="card-hint">点击翻转</div>
-            </div>
-            <div class="face back">
-                <div class="p-text"><span id="b-pron"></span><span class="tone-icon" id="b-tone"></span></div>
-                <div class="type-tag" id="b-type"></div>
-                <div id="tone-box"></div>
-                <div class="kbd" id="b-key"></div>
-            </div>
+    <div class="nav" id="nav"></div>
+    <div class="card" id="card" onclick="flip()">
+        <div class="card-face card-front">
+            <span id="tag" class="tag"></span>
+            <div class="main-char" id="fc">ก</div>
+            <div class="hint">点击翻转</div>
+        </div>
+        <div class="card-face card-back">
+            <div class="info"><span id="bp"></span><span class="tone" id="bt"></span></div>
+            <div class="type" id="btype"></div>
+            <div id="tbox"></div>
+            <div class="kbd" id="bk"></div>
         </div>
     </div>
-    <div class="mastery-bar"><div class="mastery-fill" id="mastery-fill" style="width:0%"></div></div>
-    <div class="pairs-row" id="pairs-row">
-        <div class="pair-hint" id="p1"><span class="pair-tag" id="p1-tag"></span><div class="pair-char" id="p1-char"></div><div class="pair-label" id="p1-label"></div></div>
-        <div class="pair-hint" id="p2"><span class="pair-tag" id="p2-tag"></span><div class="pair-char" id="p2-char"></div><div class="pair-label" id="p2-label"></div></div>
+    <div class="pairs" id="pairs">
+        <div class="pair" id="p1"><div class="ch" id="p1c"></div><div id="p1l"></div></div>
+        <div class="pair" id="p2"><div class="ch" id="p2c"></div><div id="p2l"></div></div>
     </div>
-    <div class="mastery-btns">
-        <button class="mastery-btn m-0" onclick="setMastery(0)">不认识</button>
-        <button class="mastery-btn m-1" onclick="setMastery(1)">模糊</button>
-        <button class="mastery-btn m-2" onclick="setMastery(2)">熟悉</button>
-        <button class="mastery-btn m-3" onclick="setMastery(3)">掌握</button>
+    <div class="mastery">
+        <button onclick="setM(0)">不认识</button>
+        <button onclick="setM(1)">模糊</button>
+        <button onclick="setM(2)">熟悉</button>
+        <button onclick="setM(3)">掌握</button>
     </div>
-    <div class="progress">
-        <span><span id="cur">1</span>/<span id="total">0</span></span>
-        <span id="mastery-text"></span>
+    <div class="bar"><div class="bar-fill" id="bf" style="width:0%"></div></div>
+    <div class="bottom">
+        <span><span id="cur">1</span>/<span id="tot">0</span></span>
+        <span id="mt" style="color:#28a745"></span>
     </div>
     <div class="ctrl">
         <button onclick="prev()">←</button>
-        <button style="background:#6f42c1" onclick="doShuffle()">随机</button>
+        <button onclick="rnd()">随机</button>
         <button onclick="next()">→</button>
     </div>
 </div>
 <div class="toast" id="toast"></div>
 <script>
-let appData={categories:[],cards:[]},currentCards=[],idx=0,currentCat='all',starFilter=false,weakFilter=false;
-const SK='thaicard_p',STK='thaicard_s';
-function lp(){try{return JSON.parse(localStorage.getItem(SK))||{}}catch{return{}}}
-function sp(p){localStorage.setItem(SK,JSON.stringify(p))}
-function ls(){try{return JSON.parse(localStorage.getItem(STK))||{today:{},streak:1,lastDate:null,totalCards:0}}catch{return{today:{},streak:1,lastDate:null,totalCards:0}}}
-function ss(s){localStorage.setItem(STK,JSON.stringify(s))}
-function gtk(){return new Date().toISOString().slice(0,10)}
-function es(s){const t=gtk(),y=new Date(Date.now()-864e6).toISOString().slice(0,10);if(s.lastDate===t)return s;if(s.lastDate===y){}else if(s.lastDate&&s.lastDate!==t)s.streak=1;return s}
-function rs(cid,m){const p=lp(),o=p[cid]||{m:0,c:0};p[cid]={m:m,c:o.c+1,lastStudy:Date.now()};sp(p);const s=es(ls()),td=gtk();s.lastDate=td;if(!s.today[td])s.today[td]=[];if(!s.today[td].includes(cid))s.today[td].push(cid);s.totalCards++;s.streak=Math.max(s.streak,1);ss(s)}
-function st(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1500)}
-function gtt(c){if(c==='mid')return'<table class="tone-table"><tr><th>声调</th><th>长元</th><th>短元</th><th>带尾</th></tr><tr><td>中辅</td><td>中</td><td>中</td><td>中</td></tr><tr><td>例词</td><td><span class="highlight-tone">1</span>声</td><td><span class="highlight-tone">2</span>声</td><td><span class="highlight-tone">2</span>声</td></tr></table>';if(c==='high')return'<table class="tone-table"><tr><th>声调</th><th>长元</th><th>短元</th><th>带尾</th></tr><tr><td>高辅</td><td>中</td><td>低</td><td>低</td></tr><tr><td>例词</td><td><span class="highlight-tone">5</span>声</td><td><span class="highlight-tone">2</span>声</td><td><span class="highlight-tone">2</span>声</td></tr></table>';if(c&&c.startsWith('low'))return'<table class="tone-table"><tr><th>声调</th><th>长元</th><th>短元</th><th>带尾</th></tr><tr><td>低辅</td><td>低</td><td>低</td><td>低</td></tr><tr><td>例词</td><td><span class="highlight-tone">1</span>声</td><td><span class="highlight-tone">4</span>声</td><td><span class="highlight-tone">3</span>声</td></tr></table>';return'<div style="font-size:11px;color:#888;">元音：短+促音尾=促声，长=舒声</div>'}
-function bfn(cs){document.getElementById('filter-nav').innerHTML=cs.map(c=>`<button class="filter-btn${c.id==='all'?' active':''}" onclick="setFilter('${c.id}',this)">${c.label}</button>`).join('')}
-function bcc(){let cts=[...appData.cards];if(currentCat!=='all')cts=cts.filter(i=>i.cat===currentCat);if(starFilter){const p=lp();cts=cts.filter(c=>p[c.c]?.starred)}if(weakFilter){const p=lp();cts.sort((a,b)=>(p[a.c]?.m||0)-(p[b.c]?.m||0))}currentCards=cts;idx=0;render()}
-function gml(cid){return lp()[cid]?.m||0}
-function iss(cid){return lp()[cid]?.starred||false}
+let D={c:[],cards:[]},C=[],i=0,cat='all';
+const SK='tcp',STK='tcs';
+const lp=()=>JSON.parse(localStorage.getItem(SK)||'{}');
+const sp=p=>localStorage.setItem(SK,JSON.stringify(p));
+const ls=()=>JSON.parse(localStorage.getItem(STK)||'{"today":{},"streak":1}');
+const ss=s=>localStorage.setItem(STK,JSON.stringify(s));
+const tk=()=>new Date().toISOString().slice(0,10);
+const es=s=>{const t=tk(),y=new Date(Date.now()-864e6).toISOString().slice(0,10);if(s.lastDate===t)return s;if(s.lastDate!==y)s.streak=1;return s};
+const rs=(id,m)=>{const p=lp();p[id]={m,last:Date.now()};sp(p);const s=es(ls()),td=tk();s.lastDate=td;s.today[td]=(s.today[td]||[]);if(!s.today[td].includes(id))s.today[td].push(id);s.total=(s.total||0)+1;s.streak=Math.max(s.streak,1);ss(s)};
+const st=m=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1200)};
+const tt=c=>{if(c==='mid')return'<table class="tone-table"><tr><th>声调</th><th>长</th><th>短</th></tr><tr><td>中辅</td><td>中</td><td>中</td></tr><tr><td>例</td><td><span class=hl>1</span></td><td><span class=hl>2</span></td></tr></table>';if(c==='high')return'<table class="tone-table"><tr><th>声调</th><th>长</th><th>短</th></tr><tr><td>高辅</td><td>中</td><td>低</td></tr><tr><td>例</td><td><span class=hl>5</span></td><td><span class=hl>2</span></td></tr></table>';if(c&&c.startsWith('low'))return'<table class="tone-table"><tr><th>声调</th><th>长</th><th>短</th></tr><tr><td>低辅</td><td>低</td><td>低</td></tr><tr><td>例</td><td><span class=hl>1</span></td><td><span class=hl>4</span></td></tr></table>';return'<div style=font-size:9px;color:#888>短元+促=促声</div>'};
+const bf=()=>{document.getElementById('nav').innerHTML=D.c.map(c=>`<button class=${c.id===cat?'active':''} onclick="sf('${c.id}',this)">${c.label}</button>`).join('')};
+const bc=()=>{C=D.cards.filter(x=>cat==='all'||x.cat===cat);i=0;r()};
 const ml=['不认识','模糊','熟悉','掌握'],mc=['#dc3545','#fd7e14','#ff3107','#28a745'];
-function render(){if(currentCards.length===0){document.getElementById('f-char').innerText='🎉';document.getElementById('cur').innerText='0';document.getElementById('total').innerText='0';return}const it=currentCards[idx],cid=it.c;const cel=document.getElementById('card');cel.classList.remove('flipped');setTimeout(()=>{document.getElementById('f-char').innerText=it.c;const tg=document.getElementById('label');tg.innerText=it.t;tg.className='tag '+it.b;const sr=iss(cid);document.getElementById('star-icon').innerText=sr?'⭐':'⭐';document.getElementById('star-icon').style.color=sr?'#ff3107':'#ddd';document.getElementById('b-pron').innerText=it.p;document.getElementById('b-tone').innerText=it.selfTone;document.getElementById('b-type').innerText=it.ty;document.getElementById('b-key').innerText='键盘: '+it.k;document.getElementById('tone-box').innerHTML=gtt(it.cat);const p1=document.getElementById('p1'),p2=document.getElementById('p2');p1.style.visibility='hidden';p2.style.visibility='hidden';if(it.pairs){if(it.pairs[0]){p1.style.visibility='visible';document.getElementById('p1-tag').innerText=it.pairs[0].tag;document.getElementById('p1-char').innerText=it.pairs[0].char;document.getElementById('p1-label').innerText=it.pairs[0].lab;document.getElementById('p1-label').className='pair-label '+it.pairs[0].cls}if(it.pairs[1]){p2.style.visibility='visible';document.getElementById('p2-tag').innerText=it.pairs[1].tag;document.getElementById('p2-char').innerText=it.pairs[1].char;document.getElementById('p2-label').innerText=it.pairs[1].lab;document.getElementById('p2-label').className='pair-label '+it.pairs[1].cls}}const m=gml(cid);document.getElementById('mastery-fill').style.width=(m/3*100)+'%';document.getElementById('mastery-fill').style.background=m<=0?'#eee':m===1?'#fd7e14':m===2?'#ff3107':'#28a745';document.getElementById('mastery-text').innerText=m>0?ml[m]:'';document.getElementById('mastery-text').style.color=mc[m];document.querySelectorAll('.mastery-btn').forEach((b,i)=>b.classList.toggle('selected',i===m));document.getElementById('cur').innerText=idx+1;document.getElementById('total').innerText=currentCards.length},150);us()}
-function us(){const s=es(ls()),t=gtk(),tc=s.today[t]?s.today[t].length:0,p=lp(),m=Object.values(p).filter(x=>x.m>=3).length;document.getElementById('s-today').innerText=tc;document.getElementById('s-total').innerText=s.totalCards;document.getElementById('s-mastered').innerText=m;document.getElementById('s-streak').innerText='🔥'+s.streak+'天'}
-function flip(){document.getElementById('card').classList.toggle('flipped')}
-function next(){if(!currentCards.length)return;idx=(idx+1)%currentCards.length;render()}
-function prev(){if(!currentCards.length)return;idx=(idx-1+currentCards.length)%currentCards.length;render()}
-function setFilter(cat,btn){document.querySelectorAll('#filter-nav .filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');currentCat=cat;bcc()}
-function toggleStarFilter(){starFilter=!starFilter;document.getElementById('f-starred').classList.toggle('active',starFilter);bcc()}
-function toggleWeakFilter(){weakFilter=!weakFilter;document.getElementById('f-weak').classList.toggle('active',weakFilter);bcc()}
-function toggleStar(){const cid=currentCards[idx].c,p=lp();if(!p[cid])p[cid]={m:0,c:0};p[cid].starred=!p[cid].starred;sp(p);render();st(p[cid].starred?'⭐已收藏':'取消收藏')}
-function setMastery(lv){const cid=currentCards[idx].c;rs(cid,lv);render();if(lv>=3)st('🎉已掌握!');setTimeout(next,500)}
-function doShuffle(){currentCards.sort(()=>Math.random()-.5);idx=0;render();st('🎲随机')}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prev();else if(e.key==='ArrowRight')next();else if(e.key===' '||e.key==='Enter'){e.preventDefault();flip()}else if(e.key>='1'&&e.key<='4')setMastery(parseInt(e.key)-1)});
-fetch('data/cards.json').then(r=>r.json()).then(d=>{appData=d;bfn(appData.categories);bcc()}).catch(e=>{document.getElementById('f-char').innerText='加载失败';console.error(e)});
+const r=()=>{if(!C.length)return;const x=C[i],el=document.getElementById('card');el.classList.remove('flip');setTimeout(()=>{document.getElementById('fc').innerText=x.c;const tg=document.getElementById('tag');tg.innerText=x.t;tg.className='tag c-'+x.b;document.getElementById('bp').innerText=x.p;document.getElementById('bt').innerText=x.selfTone;document.getElementById('btype').innerText=x.ty;document.getElementById('bk').innerText='⌨'+x.k;document.getElementById('tbox').innerHTML=tt(x.cat);const p1=document.getElementById('p1'),p2=document.getElementById('p2');p1.style.visibility=p2.style.visibility='hidden';if(x.pairs){if(x.pairs[0]){p1.style.visibility='visible';document.getElementById('p1c').innerText=x.pairs[0].char;document.getElementById('p1l').innerText=x.pairs[0].lab;p1.style.background='var(--c-'+x.pairs[0].cls+')'}if(x.pairs[1]){p2.style.visibility='visible';document.getElementById('p2c').innerText=x.pairs[1].char;document.getElementById('p2l').innerText=x.pairs[1].lab}}const m=lp()[x.c]?.m||0;document.getElementById('bf').style.width=(m/3*100)+'%';document.getElementById('mt').innerText=m?ml[m]:'';document.getElementById('mt').style.color=mc[m];document.querySelectorAll('.mastery button').forEach((b,j)=>b.classList.toggle('sel',j===m));document.getElementById('cur').innerText=i+1;document.getElementById('tot').innerText=C.length},150);us()};
+const us=()=>{const s=es(ls()),td=tk();document.getElementById('st').innerText=(s.today[td]||[]).length;document.getElementById('ss').innerText=s.total||0;document.getElementById('sm').innerText=Object.values(lp()).filter(p=>p.m>=3).length;document.getElementById('sr').innerText='🔥'+s.streak};
+const flip=()=>document.getElementById('card').classList.toggle('flip');
+const next=()=>{if(!C.length)return;i=(i+1)%C.length;r()};
+const prev=()=>{if(!C.length)return;i=(i-1+C.length)%C.length;r()};
+const sf=(c,btn)=>{document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');cat=c;bc()};
+const setM=lv=>{rs(C[i].c,lv);r();if(lv>=3)st('🎉');setTimeout(next,400)};
+const rnd=()=>{C.sort(()=>Math.random()-.5);i=0;r();st('🎲')};
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prev();else if(e.key==='ArrowRight')next();else if(e.key===' '||e.key==='Enter'){e.preventDefault();flip()}else if(e.key>='1'&&e.key<='4')setM(parseInt(e.key)-1)});
+fetch('data/cards.json').then(r=>r.json()).then(d=>{D=d;bf();bc()});
 </script>
 </body>
 </html>
