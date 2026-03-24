@@ -15,10 +15,10 @@
         .nav{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;flex-shrink:0}
         .nav button{flex:1 1 15%;min-width:40px;padding:4px 2px;font-size:9px;border:1px solid #eee;border-radius:4px;background:#fff;cursor:pointer}
         .nav button.active{background:#1a73e8;color:#fff;border-color:#1a73e8}
-        .card{flex:1;position:relative;background:#fff;border-radius:10px;box-shadow:0 2px8px rgba(0,0,0,0.08);margin-bottom:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;cursor:pointer}
-        .card.flip{transform:rotateY(180deg)}
+        .card{flex:1;position:relative;background:#fff;border-radius:10px;box-shadow:0 2px8px rgba(0,0,0,0.08);margin-bottom:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;cursor:pointer;transform-style:preserve-3d;transition:transform 0.4s}
+        .card.flipped{transform:rotateY(180deg)}
         .card-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px}
-        .card-back{transform:rotateY(180deg);justify-content:space-around}
+        .card-back{transform:rotateY(180deg)}
         .main-char{font-size:60px;color:#333}
         .hint{font-size:9px;color:#bbb;margin-top:4px}
         .info{font-size:14px;color:#1a73e8;font-weight:bold;display:flex;align-items:center;gap:4px}
@@ -32,6 +32,7 @@
         .pairs{display:flex;gap:4px;margin-bottom:3px;flex-shrink:0}
         .pair{flex:1;background:#fff;border-radius:6px;border:1px dashed #ddd;padding:2px;text-align:center;font-size:8px}
         .pair .ch{font-size:16px;color:#333}
+        .pair .lb{font-size:7px;color:#fff;padding:1px3px;border-radius:3px;margin-top:2px}
         .mastery{display:flex;gap:3px;margin-bottom:3px;flex-shrink:0}
         .mastery button{flex:1;padding:4px;font-size:10px;border:1px solid #ddd;border-radius:4px;background:#fff;cursor:pointer}
         .mastery button:nth-child(1).sel{background:#dc3545;color:#fff}
@@ -58,9 +59,8 @@
         <div class="streak" id="sr">🔥0</div>
     </div>
     <div class="nav" id="nav"></div>
-    <div class="card" id="card" onclick="flip()">
-        <div class="card-face card-front">
-            <span id="tag" class="tag"></span>
+    <div class="card" id="card" onclick="flipCard()">
+        <div class="card-face">
             <div class="main-char" id="fc">ก</div>
             <div class="hint">点击翻转</div>
         </div>
@@ -72,8 +72,8 @@
         </div>
     </div>
     <div class="pairs" id="pairs">
-        <div class="pair" id="p1"><div class="ch" id="p1c"></div><div id="p1l"></div></div>
-        <div class="pair" id="p2"><div class="ch" id="p2c"></div><div id="p2l"></div></div>
+        <div class="pair" id="p1"><div class="ch" id="p1c">-</div><div class="lb" id="p1l"></div></div>
+        <div class="pair" id="p2"><div class="ch" id="p2c">-</div><div class="lb" id="p2l"></div></div>
     </div>
     <div class="mastery">
         <button onclick="setM(0)">不认识</button>
@@ -94,7 +94,7 @@
 </div>
 <div class="toast" id="toast"></div>
 <script>
-let D={c:[],cards:[]},C=[],i=0,cat='all';
+let D={c:[],cards:[]},C=[],i=0,cat='all',isFlip=false;
 const SK='tcp',STK='tcs';
 const lp=()=>JSON.parse(localStorage.getItem(SK)||'{}');
 const sp=p=>localStorage.setItem(SK,JSON.stringify(p));
@@ -106,18 +106,18 @@ const rs=(id,m)=>{const p=lp();p[id]={m,last:Date.now()};sp(p);const s=es(ls()),
 const st=m=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1200)};
 const tt=c=>{if(c==='mid')return'<table class="tone-table"><tr><th>声调</th><th>长</th><th>短</th></tr><tr><td>中辅</td><td>中</td><td>中</td></tr><tr><td>例</td><td><span class=hl>1</span></td><td><span class=hl>2</span></td></tr></table>';if(c==='high')return'<table class="tone-table"><tr><th>声调</th><th>长</th><th>短</th></tr><tr><td>高辅</td><td>中</td><td>低</td></tr><tr><td>例</td><td><span class=hl>5</span></td><td><span class=hl>2</span></td></tr></table>';if(c&&c.startsWith('low'))return'<table class="tone-table"><tr><th>声调</th><th>长</th><th>短</th></tr><tr><td>低辅</td><td>低</td><td>低</td></tr><tr><td>例</td><td><span class=hl>1</span></td><td><span class=hl>4</span></td></tr></table>';return'<div style=font-size:9px;color:#888>短元+促=促声</div>'};
 const bf=()=>{document.getElementById('nav').innerHTML=D.c.map(c=>`<button class=${c.id===cat?'active':''} onclick="sf('${c.id}',this)">${c.label}</button>`).join('')};
-const bc=()=>{C=D.cards.filter(x=>cat==='all'||x.cat===cat);i=0;r()};
+const bc=()=>{C=D.cards.filter(x=>cat==='all'||x.cat===cat);i=0;render()};
 const ml=['不认识','模糊','熟悉','掌握'],mc=['#dc3545','#fd7e14','#ff3107','#28a745'];
-const r=()=>{if(!C.length)return;const x=C[i],el=document.getElementById('card');el.classList.remove('flip');setTimeout(()=>{document.getElementById('fc').innerText=x.c;const tg=document.getElementById('tag');tg.innerText=x.t;tg.className='tag c-'+x.b;document.getElementById('bp').innerText=x.p;document.getElementById('bt').innerText=x.selfTone;document.getElementById('btype').innerText=x.ty;document.getElementById('bk').innerText='⌨'+x.k;document.getElementById('tbox').innerHTML=tt(x.cat);const p1=document.getElementById('p1'),p2=document.getElementById('p2');p1.style.visibility=p2.style.visibility='hidden';if(x.pairs){if(x.pairs[0]){p1.style.visibility='visible';document.getElementById('p1c').innerText=x.pairs[0].char;document.getElementById('p1l').innerText=x.pairs[0].lab;p1.style.background='var(--c-'+x.pairs[0].cls+')'}if(x.pairs[1]){p2.style.visibility='visible';document.getElementById('p2c').innerText=x.pairs[1].char;document.getElementById('p2l').innerText=x.pairs[1].lab}}const m=lp()[x.c]?.m||0;document.getElementById('bf').style.width=(m/3*100)+'%';document.getElementById('mt').innerText=m?ml[m]:'';document.getElementById('mt').style.color=mc[m];document.querySelectorAll('.mastery button').forEach((b,j)=>b.classList.toggle('sel',j===m));document.getElementById('cur').innerText=i+1;document.getElementById('tot').innerText=C.length},150);us()};
-const us=()=>{const s=es(ls()),td=tk();document.getElementById('st').innerText=(s.today[td]||[]).length;document.getElementById('ss').innerText=s.total||0;document.getElementById('sm').innerText=Object.values(lp()).filter(p=>p.m>=3).length;document.getElementById('sr').innerText='🔥'+s.streak};
-const flip=()=>document.getElementById('card').classList.toggle('flip');
-const next=()=>{if(!C.length)return;i=(i+1)%C.length;r()};
-const prev=()=>{if(!C.length)return;i=(i-1+C.length)%C.length;r()};
+const render=()=>{if(!C.length)return;const x=C[i];const card=document.getElementById('card');card.classList.remove('flipped');isFlip=false;setTimeout(()=>{document.getElementById('fc').innerText=x.c;document.getElementById('bp').innerText=x.p;document.getElementById('bt').innerText=x.selfTone;document.getElementById('btype').innerText=x.ty;document.getElementById('bk').innerText='键盘:'+x.k;document.getElementById('tbox').innerHTML=tt(x.cat);const p1=document.getElementById('p1'),p2=document.getElementById('p2');p1.style.visibility=p2.style.visibility='hidden';if(x.pairs){if(x.pairs[0]){p1.style.visibility='visible';document.getElementById('p1c').innerText=x.pairs[0].char;const lb=document.getElementById('p1l');lb.innerText=x.pairs[0].lab;lb.className='lb c-'+(x.pairs[0].cls||'mid')}if(x.pairs[1]){p2.style.visibility='visible';document.getElementById('p2c').innerText=x.pairs[1].char;const lb=document.getElementById('p2l');lb.innerText=x.pairs[1].lab;lb.className='lb c-'+(x.pairs[1].cls||'mid')}}const m=lp()[x.c]?.m||0;document.getElementById('bf').style.width=(m/3*100)+'%';document.getElementById('mt').innerText=m?ml[m]:'';document.getElementById('mt').style.color=mc[m];document.querySelectorAll('.mastery button').forEach((b,j)=>b.classList.toggle('sel',j===m));document.getElementById('cur').innerText=i+1;document.getElementById('tot').innerText=C.length},150);updateStats()};
+const updateStats=()=>{const s=es(ls()),td=tk();document.getElementById('st').innerText=(s.today[td]||[]).length;document.getElementById('ss').innerText=s.total||0;document.getElementById('sm').innerText=Object.values(lp()).filter(p=>p.m>=3).length;document.getElementById('sr').innerText='🔥'+s.streak};
+const flipCard=()=>{const c=document.getElementById('card');isFlip=!isFlip;if(isFlip)c.classList.add('flipped');else c.classList.remove('flipped')};
+const next=()=>{if(!C.length)return;i=(i+1)%C.length;render()};
+const prev=()=>{if(!C.length)return;i=(i-1+C.length)%C.length;render()};
 const sf=(c,btn)=>{document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');cat=c;bc()};
-const setM=lv=>{rs(C[i].c,lv);r();if(lv>=3)st('🎉');setTimeout(next,400)};
-const rnd=()=>{C.sort(()=>Math.random()-.5);i=0;r();st('🎲')};
-document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prev();else if(e.key==='ArrowRight')next();else if(e.key===' '||e.key==='Enter'){e.preventDefault();flip()}else if(e.key>='1'&&e.key<='4')setM(parseInt(e.key)-1)});
-fetch('data/cards.json').then(r=>r.json()).then(d=>{D=d;bf();bc()});
+const setM=lv=>{rs(C[i].c,lv);render();if(lv>=3)st('🎉');setTimeout(next,400)};
+const rnd=()=>{C.sort(()=>Math.random()-.5);i=0;render();st('🎲')};
+document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prev();else if(e.key==='ArrowRight')next();else if(e.key===' '||e.key==='Enter'){e.preventDefault();flipCard()}else if(e.key>='1'&&e.key<='4')setM(parseInt(e.key)-1)});
+fetch('data/cards.json').then(r=>r.json()).then(d=>{D=d;bf();bc()}).catch(e=>{console.error(e);document.getElementById('fc').innerText='加载失败'});
 </script>
 </body>
 </html>
