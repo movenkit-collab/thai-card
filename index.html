@@ -2,118 +2,223 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>泰语学习卡</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泰语全体系学习卡 - 渲染修复终极版</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        html,body{height:100%;overflow:hidden}
-        body{font-family:'Leelawadee UI',Thonburi,Tahoma,sans-serif;background:#f4f7f9;display:flex;flex-direction:column;padding:6px}
-        .box{width:100%;max-width:400px;margin:0 auto;flex:1;display:flex;flex-direction:column;overflow:hidden}
-        .bar{display:flex;gap:4px;margin-bottom:4px;flex-shrink:0}
-        .bar>div{background:#fff;padding:4px 8px;border-radius:6px;font-size:11px;box-shadow:0 1px2px rgba(0,0,0,0.05)}
-        .bar .red{background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff;font-weight:bold}
-        .nav{display:flex;flex-wrap:wrap;gap:2px;margin-bottom:4px}
-        .nav button{flex:1 1 15%;padding:4px 1px;font-size:9px;border:1px solid #eee;border-radius:4px;background:#fff;cursor:pointer}
-        .nav button.sel{background:#1a73e8;color:#fff;border-color:#1a73e8}
-        .card{position:relative;flex:1;background:#fff;border-radius:10px;box-shadow:0 2px6px rgba(0,0,0,0.08);margin-bottom:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
-        .char{font-size:55px;color:#333}
-        .hint{position:absolute;bottom:8px;font-size:9px;color:#bbb}
-        .back{position:absolute;width:100%;height:100%;background:#fcfcfc;border-radius:10px;display:none;flex-direction:column;align-items:center;justify-content:center;padding:10px}
-        .back.show{display:flex}
-        .p1{font-size:16px;color:#1a73e8;font-weight:bold;margin-bottom:4px}
-        .t1{font-size:10px;background:#e1ecf4;padding:2px 6px;border-radius:3px;color:#1a73e8}
-        .t2{font-size:11px;color:#e67e22;font-weight:bold;margin:2px 0}
-        .kb{font-size:10px;color:#999}
-        .tbl{width:90%;font-size:8px;border-collapse:collapse;margin:4px 0}
-        .tbl td,.tbl th{padding:2px;border:1px solid #ddd;text-align:center}
-        .tbl th{background:#f0f0f0}
-        .redtxt{color:#d32f2f;font-weight:bold}
-        .pairs{display:flex;gap:4px;margin-bottom:3px}
-        .pair{flex:1;background:#fff;padding:4px;border-radius:6px;text-align:center}
-        .pairc{font-size:18px;color:#333}
-        .pairl{font-size:8px;color:#fff;padding:1px 4px;border-radius:3px;margin-top:2px;display:inline-block}
-        .btns{display:flex;gap:3px;margin-bottom:3px}
-        .btns button{flex:1;padding:5px;font-size:10px;border:1px solid #ddd;border-radius:4px;background:#fff;cursor:pointer}
-        .btns button.s0{background:#dc3545;color:#fff}
-        .btns button.s1{background:#fd7e14;color:#fff}
-        .btns button.s2{background:#ff3107;color:#fff}
-        .btns button.s3{background:#28a745;color:#fff}
-        .prg{height:3px;background:#eee;border-radius:2px;margin-bottom:3px}
-        .prgf{height:100%;background:linear-gradient(90deg,#ff3107,#28a745);border-radius:2px;transition:width .3s}
-        .bot{display:flex;justify-content:space-between;font-size:10px;color:#888;margin-bottom:2px}
-        .ctr{display:flex;gap:4px}
-        .ctr button{flex:1;padding:8px;font-size:12px;border:none;border-radius:8px;background:#1a73e8;color:#fff;cursor:pointer}
-        .ctr button.b2{background:#6f42c1}
-        .c0{background:#28a745}.c1{background:#dc3545}.c2{background:#fd7e14}.c3{background:#e67e22}.c4{background:#6f42c1}.c5{background:#17a2b8}
-        .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:#333;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;opacity:0;transition:all .3s;z-index:100}
-        .toast.on{transform:translateX(-50%) translateY(0);opacity:1}
+        body { font-family: 'Leelawadee UI', 'Thonburi', 'Tahoma', 'PingFang SC', sans-serif; background: #f4f7f9; display: flex; flex-direction: column; align-items: center; padding: 15px; margin: 0; min-height: 100vh; }
+        .container { width: 100%; max-width: 450px; display: flex; flex-direction: column; align-items: center; }
+        
+        /* 导航优化 */
+        .filter-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 20px; background: white; padding: 10px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); width: 100%; box-sizing: border-box; }
+        .filter-btn { padding: 8px 6px; border: 1px solid #eee; border-radius: 8px; background: #fff; cursor: pointer; font-size: 10px; font-weight: bold; flex: 1 1 18%; min-width: 55px; }
+        .filter-btn.active { background: #1a73e8; color: white; border-color: #1a73e8; }
+        
+        /* 卡片区域：高度固定防止抖动 */
+        .card-area { perspective: 1000px; width: 100%; height: 380px; cursor: pointer; margin-bottom: 15px; }
+        .card { position: relative; width: 100%; height: 100%; transition: transform 0.4s; transform-style: preserve-3d; border-radius: 20px; }
+        .card.flipped { transform: rotateY(180deg); }
+        .face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 20px; padding: 15px; box-sizing: border-box; background: white; border: 1px solid #eee; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .back { transform: rotateY(180deg); background: #fcfcfc; justify-content: space-around; }
+        
+        /* 字符渲染优化 */
+        .tag { position: absolute; top: 15px; left: 15px; font-size: 11px; padding: 4px 10px; border-radius: 8px; color: white; font-weight: bold; }
+        .main-char { font-size: 95px; color: #333; margin: 5px 0; line-height: 1.2; }
+        .p-text { font-size: 28px; color: #1a73e8; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .tone-icon { font-size: 13px; background: #e1ecf4; padding: 2px 6px; border-radius: 4px; color: #1a73e8; font-weight: normal; }
+        
+        /* 表格与副卡 */
+        .type-tag { font-size: 13px; color: #e67e22; font-weight: bold; }
+        #tone-box { width: 100%; margin: 5px 0; }
+        .tone-table { width: 100%; border-collapse: collapse; font-size: 10px; background: white; border: 1px solid #ddd; }
+        .tone-table th { background: #f0f0f0; padding: 4px 2px; border: 1px solid #ddd; }
+        .tone-table td { padding: 6px 2px; border: 1px solid #ddd; text-align: center; }
+        .highlight-tone { color: #dc3545; font-weight: bold; font-size: 12px; }
+        
+        .pairs-row { display: flex; gap: 8px; justify-content: center; width: 100%; margin-bottom: 15px; height: 100px; }
+        .pair-hint { flex: 1; max-width: 130px; background: white; border-radius: 12px; border: 2px dashed #ddd; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 5px; }
+        .pair-tag { position: absolute; top: 4px; font-size: 9px; color: #aaa; }
+        .pair-char { font-size: 32px; color: #333; margin-top: 8px; }
+        .pair-label { font-size: 9px; padding: 2px 4px; border-radius: 4px; color: white; margin-top: 4px; }
+        
+        /* 控制 */
+        .ctrl { display: flex; gap: 10px; width: 100%; justify-content: center; }
+        .ctrl button { flex: 1; padding: 12px; border: none; border-radius: 12px; background: #1a73e8; color: white; cursor: pointer; font-weight: bold; font-size: 14px; max-width: 110px; }
+        .progress { margin: 10px 0 5px; color: #888; font-size: 12px; }
+
+        /* 颜色定义 */
+        .c-mid { background: #28a745; } .c-high { background: #dc3545; } 
+        .c-low-p { background: #fd7e14; } .c-low-s { background: #e67e22; } 
+        .c-vs { background: #6f42c1; } .c-vl { background: #17a2b8; }
     </style>
 </head>
 <body>
-<div class="box">
-    <div class="bar">
-        <div>今<span id="td">0</span></div>
-        <div>总<span id="tt">0</span></div>
-        <div>掌<span id="tm">0</span></div>
-        <div class="red" id="sk">🔥0</div>
+
+<div class="container">
+    <div class="filter-nav">
+        <button class="filter-btn active" onclick="setFilter('all', this)">全部</button>
+        <button class="filter-btn" onclick="setFilter('mid', this)">中(9)</button>
+        <button class="filter-btn" onclick="setFilter('high', this)">高(11)</button>
+        <button class="filter-btn" onclick="setFilter('low-p', this)">孪低(14)</button>
+        <button class="filter-btn" onclick="setFilter('low-s', this)">单低(10)</button>
+        <button class="filter-btn" onclick="setFilter('v', this)">元音(24)</button>
     </div>
-    <div class="nav" id="nv"></div>
-    <div class="card" onclick="flip()">
-        <div class="char" id="ch">ก</div>
-        <div class="hint">点击翻转</div>
-        <div class="back" id="bk">
-            <div class="p1" id="pr"></div>
-            <div class="t1" id="tn"></div>
-            <div class="t2" id="ty"></div>
-            <div class="tbl" id="tb"></div>
-            <div class="kb" id="kb"></div>
+
+    <div class="card-area" onclick="flip()">
+        <div class="card" id="card">
+            <div class="face front">
+                <span id="label" class="tag"></span>
+                <div class="main-char" id="f-char">ก</div>
+            </div>
+            <div class="face back">
+                <div class="p-text">
+                    <span id="b-pron">-</span>
+                    <span class="tone-icon" id="b-tone">-</span>
+                </div>
+                <div class="type-tag" id="b-type">-</div>
+                <div id="tone-box"></div> 
+                <div class="kbd" style="font-size:11px; color:#999;" id="b-key">-</div>
+            </div>
         </div>
     </div>
-    <div class="pairs">
-        <div class="pair" id="p1"><div class="pairc" id="p1c"></div><div class="pairl" id="p1l"></div></div>
-        <div class="pair" id="p2"><div class="pairc" id="p2c"></div><div class="pairl" id="p2l"></div></div>
+
+    <div class="pairs-row" id="pairs-row">
+        <div class="pair-hint" id="p1"><span class="pair-tag" id="p1-tag">-</span><div class="pair-char" id="p1-char">-</div><div class="pair-label" id="p1-label">-</div></div>
+        <div class="pair-hint" id="p2"><span class="pair-tag" id="p2-tag">-</span><div class="pair-char" id="p2-char">-</div><div class="pair-label" id="p2-label">-</div></div>
     </div>
-    <div class="btns">
-        <button onclick="rate(0)">不认识</button>
-        <button onclick="rate(1)">模糊</button>
-        <button onclick="rate(2)">熟悉</button>
-        <button onclick="rate(3)">掌握</button>
-    </div>
-    <div class="prg"><div class="prgf" id="pf" style="width:0%"></div></div>
-    <div class="bot">
-        <span><span id="cu">1</span>/<span id="to">0</span></span>
-        <span id="mt" style="color:#28a745"></span>
-    </div>
-    <div class="ctr">
-        <button onclick="go(-1)">←</button>
-        <button class="b2" onclick="shuf()">随机</button>
-        <button onclick="go(1)">→</button>
+
+    <div class="progress">进度: <span id="cur">1</span> / <span id="total">0</span></div>
+    <div class="ctrl">
+        <button onclick="prev()">上一个</button>
+        <button style="background:#6f42c1" onclick="doShuffle()">随机</button>
+        <button onclick="next()">下一个</button>
     </div>
 </div>
-<div class="toast" id="ts"></div>
+
 <script>
-var D={c:[]},L=[],I=0,CA='all',F=false;
-var SK='tc_p',SK2='tc_s';
-function gp(){try{return JSON.parse(localStorage.getItem(SK))||{}}catch{return{}}}
-function sp(p){localStorage.setItem(SK,JSON.stringify(p))}
-function gs(){try{return JSON.parse(localStorage.getItem(SK2))||{today:{},streak:1,total:0}}catch{return{today:{},streak:1,total:0}}}
-function ss(s){localStorage.setItem(SK2,JSON.stringify(s))}
-function td(){return new Date().toISOString().slice(0,10)}
-function es(s){var t=td(),y=new Date(Date.now()-864e5).toISOString().slice(0,10);if(s.last==t)return s;if(s.last!=y)s.streak=1;return s}
-function st(m){var t=document.getElementById('ts');t.innerText=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},1200)}
-function tt(c){if(c=='mid')return'<table class="tbl"><tr><th>声</th><th>长</th><th>短</th></tr><tr><td>中</td><td>中</td><td>中</td></tr><tr><td>例</td><td><span class=redtxt>1</span></td><td><span class=redtxt>2</span></td></tr></table>';if(c=='high')return'<table class="tbl"><tr><th>声</th><th>长</th><th>短</th></tr><tr><td>高</td><td>中</td><td>低</td></tr><tr><td>例</td><td><span class=redtxt>5</span></td><td><span class=redtxt>2</span></td></tr></table>';if(c&&c.startsWith('low'))return'<table class="tbl"><tr><th>声</th><th>长</th><th>短</th></tr><tr><td>低</td><td>低</td><td>低</td></tr><tr><td>例</td><td><span class=redtxt>1</span></td><td><span class=redtxt>4</span></td></tr></table>';return'<div style=font-size:9px;color:#888>短+促=促声</div>'}
-function bn(){document.getElementById('nv').innerHTML=D.c.map(function(c){return'<button class="'+(c.id==CA?'sel':'')+'" onclick="sf(\''+c.id+'\',this)">'+c.label+'</button>'}).join('')}
-function fl(){L=D.cards.filter(function(x){return CA=='all'||x.cat==CA});I=0;dr()}
-var ml=['不认识','模糊','熟悉','掌握'],mc=['#dc3545','#fd7e14','#ff3107','#28a745'];
-function dr(){if(L.length==0)return;var x=L[I];var bk=document.getElementById('bk');bk.classList.remove('show');F=false;setTimeout(function(){document.getElementById('ch').innerText=x.c;document.getElementById('pr').innerText=x.p;document.getElementById('tn').innerText=x.selfTone;document.getElementById('ty').innerText=x.ty;document.getElementById('kb').innerText='键盘:'+x.k;document.getElementById('tb').innerHTML=tt(x.cat);var p1=document.getElementById('p1'),p2=document.getElementById('p2');p1.style.visibility=p2.style.visibility='hidden';if(x.pairs){if(x.pairs[0]){p1.style.visibility='visible';document.getElementById('p1c').innerText=x.pairs[0].char;var l1=document.getElementById('p1l');l1.innerText=x.pairs[0].lab;l1.className='pairl c'+(x.pairs[0].cls||'0').slice(-1)}if(x.pairs[1]){p2.style.visibility='visible';document.getElementById('p2c').innerText=x.pairs[1].char;var l2=document.getElementById('p2l');l2.innerText=x.pairs[1].lab;l2.className='pairl c'+(x.pairs[1].cls||'0').slice(-1)}}var m=gp()[x.c]||0;document.getElementById('pf').style.width=(m/3*100)+'%';document.getElementById('mt').innerText=m?ml[m]:'';document.getElementById('mt').style.color=mc[m];document.querySelectorAll('.btns button').forEach(function(b,i){b.className=i===m?'btns button s'+m:'btns button'});document.getElementById('cu').innerText=I+1;document.getElementById('to').innerText=L.length},150);up()}
-function up(){var s=es(gs()),t=td();document.getElementById('td').innerText=(s.today[t]||[]).length;document.getElementById('tt').innerText=s.total;document.getElementById('tm').innerText=Object.values(gp()).filter(function(p){return p>=3}).length;document.getElementById('sk').innerText='🔥'+s.streak}
-function flip(){var b=document.getElementById('bk');F=!F;if(F)b.classList.add('show');else b.classList.remove('show')}
-function go(d){if(L.length==0)return;I=(I+d+L.length)%L.length;dr()}
-function sf(c,btn){document.querySelectorAll('.nav button').forEach(function(b){b.className=''});btn.className='sel';CA=c;fl()}
-function rate(lv){var id=L[I].c;var p=gp();p[id]=lv;sp(p);var s=es(gs());s.last=td();s.today[td()]=(s.today[td()]||[]);if(!s.today[td()].includes(id))s.today[td()].push(id);s.total++;s.streak=Math.max(s.streak,1);ss(s);dr();if(lv>=3)st('🎉');setTimeout(function(){go(1)},400)}
-function shuf(){L.sort(function(){return Math.random()-0.5});I=0;dr();st('🎲')}
-document.addEventListener('keydown',function(e){if(e.key=='ArrowLeft')go(-1);else if(e.key=='ArrowRight')go(1);else if(e.key==' '||e.key=='Enter'){e.preventDefault();flip()}else if(e.key>='1'&&e.key<='4')rate(parseInt(e.key)-1)});
-fetch('data/cards.json').then(function(r){return r.json()}).then(function(d){D=d;bn();fl()}).catch(function(e){document.getElementById('ch').innerText='加载失败';console.error(e)});
+function getToneTable(cat) {
+    if (cat === 'mid') return `<table class="tone-table"><tr><th>拼读</th><th>长元</th><th>短元</th><th>死止</th></tr><tr><td>无调号</td><td><span class="highlight-tone">1</span>声</td><td><span class="highlight-tone">2</span>声</td><td><span class="highlight-tone">2</span>声</td></tr></table>`;
+    if (cat === 'high') return `<table class="tone-table"><tr><th>拼读</th><th>长元</th><th>短元</th><th>死止</th></tr><tr><td>无调号</td><td><span class="highlight-tone">5</span>声</td><td><span class="highlight-tone">2</span>声</td><td><span class="highlight-tone">2</span>声</td></tr></table>`;
+    if (cat.startsWith('low')) return `<table class="tone-table"><tr><th>拼读</th><th>长元</th><th>短元</th><th>长死</th></tr><tr><td>无调号</td><td><span class="highlight-tone">1</span>声</td><td><span class="highlight-tone">4</span>声</td><td><span class="highlight-tone">3</span>声</td></tr></table>`;
+    return `<div style="font-size:11px; color:#888; padding:8px;">元音需配合辅音判定声调规则</div>`;
+}
+
+const data = [
+    // 中辅音 (9个)
+    { c: 'ก', cat: 'mid', t: '中辅音', b: 'c-mid', p: 'Kor', selfTone: '1声(平)', ty: '不送气清音', k: 'D' },
+    { c: 'จ', cat: 'mid', t: '中辅音', b: 'c-mid', p: 'Jor', selfTone: '1声(平)', ty: '不送气清音', k: '0' },
+    { c: 'ด', cat: 'mid', t: '中辅音', b: 'c-mid', p: 'Dor', selfTone: '1声(平)', ty: '浊音', k: 'F', pairs: [{tag:'同音/清浊', char:'ต', lab:'中辅-清', cls:'c-mid'}, {tag:'同音', char:'ฎ', lab:'中辅', cls:'c-mid'}] },
+    { c: 'ต', cat: 'mid', t: '中辅音', b: 'c-mid', p: 'Tor', selfTone: '1声(平)', ty: '不送气清音', k: '9', pairs: [{tag:'清浊对应', char:'ด', lab:'中辅-浊', cls:'c-mid'}] },
+    { c: 'บ', cat: 'mid', t: '中辅音', b: 'c-mid', p: 'Bor', selfTone: '1声(平)', ty: '浊音', k: '[', pairs: [{tag:'清浊对应', char:'ป', lab:'中辅-清', cls:'c-mid'}] },
+    { c: 'ป', cat: 'mid', t: '中辅音', b: 'c-mid', p: 'Por', selfTone: '1声(平)', ty: '不送气清音', k: 'X', pairs: [{tag:'清浊对应', char:'บ', lab:'中辅-浊', cls:'c-mid'}] },
+    { c: 'อ', cat: 'mid', t: '中辅音', b: 'c-mid', p: 'Or', selfTone: '1声(平)', ty: '零辅音', k: 'V' },
+    { c: 'ฎ', cat: 'mid', t: '中辅音', b: 'c-mid', p: 'Dor', selfTone: '1声(平)', ty: '浊音', k: 'E', pairs: [{tag:'同音', char:'ด', lab:'中辅', cls:'c-mid'}] },
+    { c: 'ฏ', cat: 'mid', t: '中辅音', b: 'c-mid', p: 'Tor', selfTone: '1声(平)', ty: '清音', k: 'D(S)', pairs: [{tag:'同音', char:'ต', lab:'中辅', cls:'c-mid'}] },
+
+    // 高辅音 (11个)
+    { c: 'ข', cat: 'high', t: '高辅音', b: 'c-high', p: 'Kor', selfTone: '5声(升)', ty: '送气清音', k: '-', pairs: [{tag:'对应低音', char:'ค', lab:'低辅', cls:'c-low-p'}] },
+    { c: 'ฃ', cat: 'high', t: '高辅音', b: 'c-high', p: 'Kor', selfTone: '5声(升)', ty: '废弃', k: '\\' },
+    { c: 'ฉ', cat: 'high', t: '高辅音', b: 'c-high', p: 'Chor', selfTone: '5声(升)', ty: '送气', k: 'C(S)', pairs: [{tag:'对应低音', char:'ช', lab:'低辅', cls:'c-low-p'}] },
+    { c: 'ฐ', cat: 'high', t: '高辅音', b: 'c-high', p: 'Tor', selfTone: '5声(升)', ty: '送气', k: 'K(S)', pairs: [{tag:'对应低音', char:'ท', lab:'低辅', cls:'c-low-p'}] },
+    { c: 'ถ', cat: 'high', t: '高辅音', b: 'c-high', p: 'Tor', selfTone: '5声(升)', ty: '送气', k: '5', pairs: [{tag:'对应低音', char:'ท', lab:'低辅', cls:'c-low-p'}] },
+    { c: 'ผ', cat: 'high', t: '高辅音', b: 'c-high', p: 'Por', selfTone: '5声(升)', ty: '送气', k: 'Z', pairs: [{tag:'对应低音', char:'พ', lab:'低辅', cls:'c-low-p'}] },
+    { c: 'ฝ', cat: 'high', t: '高辅音', b: 'c-high', p: 'For', selfTone: '5声(升)', ty: '擦音', k: '/', pairs: [{tag:'对应低音', char:'ฟ', lab:'低辅', cls:'c-low-p'}] },
+    { c: 'ศ', cat: 'high', t: '高辅音', b: 'c-high', p: 'Sor', selfTone: '5声(升)', ty: '擦音', k: 'L(S)', pairs: [{tag:'对应低音', char:'ซ', lab:'低辅', cls:'c-low-p'}] },
+    { c: 'ษ', cat: 'high', t: '高辅音', b: 'c-high', p: 'Sor', selfTone: '5声(升)', ty: '擦音', k: 'K', pairs: [{tag:'对应低音', char:'ซ', lab:'低辅', cls:'c-low-p'}] },
+    { c: 'ส', cat: 'high', t: '高辅音', b: 'c-high', p: 'Sor', selfTone: '5声(升)', ty: '擦音', k: 'L', pairs: [{tag:'对应低音', char:'ซ', lab:'低辅音', cls:'c-low-p'}] },
+    { c: 'ห', cat: 'high', t: '高辅音', b: 'c-high', p: 'Hor', selfTone: '5声(升)', ty: '擦音', k: 'S', pairs: [{tag:'对应低音', char:'ฮ', lab:'低辅', cls:'c-low-p'}] },
+
+    // 孪低辅音 (14个)
+    { c: 'ค', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Kor', selfTone: '1声(平)', ty: '送气', k: '8', pairs: [{tag:'对应高音', char:'ข', lab:'高辅', cls:'c-high'}] },
+    { c: 'ฆ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Kor', selfTone: '1声(平)', ty: '送气', k: 'S(S)' },
+    { c: 'ช', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Chor', selfTone: '1声(平)', ty: '送气', k: '=', pairs: [{tag:'对应高音', char:'ฉ', lab:'高辅', cls:'c-high'}] },
+    { c: 'ฌ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Chor', selfTone: '1声(平)', ty: '送气', k: 'G(S)' },
+    { c: 'ซ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Sor', selfTone: '1声(平)', ty: '擦音', k: ':', pairs: [{tag:'对应高音', char:'ส', lab:'高辅', cls:'c-high'}] },
+    { c: 'ฑ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Tor', selfTone: '1声(平)', ty: '送气', k: 'R(S)' },
+    { c: 'ฒ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Tor', selfTone: '1声(平)', ty: '送气', k: 'T(S)' },
+    { c: 'ท', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Tor', selfTone: '1声(平)', ty: '送气', k: 'M', pairs: [{tag:'对应高音', char:'ถ', lab:'高辅', cls:'c-high'}] },
+    { c: 'ธ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Tor', selfTone: '1声(平)', ty: '送气', k: 'O(S)' },
+    { c: 'พ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Por', selfTone: '1声(平)', ty: '送气', k: 'P', pairs: [{tag:'对应高音', char:'ผ', lab:'高辅', cls:'c-high'}] },
+    { c: 'ฟ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'For', selfTone: '1声(平)', ty: '擦音', k: 'A', pairs: [{tag:'对应高音', char:'ฝ', lab:'高辅', cls:'c-high'}] },
+    { c: 'ภ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Por', selfTone: '1声(平)', ty: '送气', k: '4' },
+    { c: 'ฮ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Hor', selfTone: '1声(平)', ty: '擦音', k: 'V(S)', pairs: [{tag:'对应高音', char:'ห', lab:'高辅', cls:'c-high'}] },
+    { c: 'ฬ', cat: 'low-p', t: '孪低音', b: 'c-low-p', p: 'Lor', selfTone: '1声(平)', ty: '边音', k: '> (S)' },
+
+    // 单低辅音 (10个)
+    { c: 'ง', cat: 'low-s', t: '单低音', b: 'c-low-s', p: 'Ngor', selfTone: '1声(平)', ty: '鼻音', k: "'", pairs: [{tag:'变高辅', char:'หง', lab:'高组', cls:'c-high'}] },
+    { c: 'ญ', cat: 'low-s', t: '单低音', b: 'c-low-s', p: 'Yor', selfTone: '1声(平)', ty: '鼻音', k: 'P(S)', pairs: [{tag:'变高辅', char:'หญ', lab:'高组', cls:'c-high'}] },
+    { c: 'ณ', cat: 'low-s', t: '单低音', b: 'c-low-s', p: 'Nor', selfTone: '1声(平)', ty: '鼻音', k: 'I(S)', pairs: [{tag:'同音', char:'น', lab:'单低', cls:'c-low-s'}] },
+    { c: 'น', cat: 'low-s', t: '单低音', b: 'c-low-s', p: 'Nor', selfTone: '1声(平)', ty: '鼻音', k: 'O', pairs: [{tag:'变高辅', char:'หน', lab:'高组', cls:'c-high'}] },
+    { c: 'ม', cat: 'low-s', t: '单低音', b: 'c-low-s', p: 'Mor', selfTone: '1声(平)', ty: '鼻音', k: ',', pairs: [{tag:'变高辅', char:'หม', lab:'高组', cls:'c-high'}] },
+    { c: 'ย', cat: 'low-s', t: '单低音', b: 'c-low-s', p: 'Yor', selfTone: '1声(平)', ty: '半元音', k: 'P', pairs: [{tag:'变高辅', char:'หย', lab:'高组', cls:'c-high'}] },
+    { c: 'ร', cat: 'low-s', t: '单低音', b: 'c-low-s', p: 'Ror', selfTone: '1声(平)', ty: '弹舌音', k: 'I', pairs: [{tag:'变高辅', char:'หร', lab:'高组', cls:'c-high'}] },
+    { c: 'ล', cat: 'low-s', t: '单低音', b: 'c-low-s', p: 'Lor', selfTone: '1声(平)', ty: '边音', k: ']', pairs: [{tag:'变高辅', char:'หล', lab:'高组', cls:'c-high'}] },
+    { c: 'ว', cat: 'low-s', t: '单低音', b: 'c-low-s', p: 'Wor', selfTone: '1声(平)', ty: '半元音', k: ';', pairs: [{tag:'变高辅', char:'หว', lab:'高组', cls:'c-high'}] },
+    { c: 'ฬ', cat: 'low-s', t: '单低音', b: 'c-low-s', p: 'Lor', selfTone: '1声(平)', ty: '边音', k: '>(S)' },
+
+    // 元音部分 - 已全部修复占位符 ◌
+    { c: '◌ะ', cat: 'v', t: '短元音', b: 'c-vs', p: 'a', selfTone: '促音', ty: '单元音', k: 'T', pairs: [{tag:'对照', char:'◌า', lab:'长元', cls:'c-vl'}] },
+    { c: '◌า', cat: 'v', t: '长元音', b: 'c-vl', p: 'aa', selfTone: '舒声', ty: '单元音', k: '1', pairs: [{tag:'对照', char:'◌ะ', lab:'短元', cls:'c-vs'}] },
+    { c: '◌ิ', cat: 'v', t: '短元音', b: 'c-vs', p: 'i', selfTone: '促音', ty: '单元音', k: 'B', pairs: [{tag:'对照', char:'◌ี', lab:'长元', cls:'c-vl'}] },
+    { c: '◌ี', cat: 'v', t: '长元音', b: 'c-vl', p: 'ii', selfTone: '舒声', ty: '单元音', k: 'U', pairs: [{tag:'对照', char:'◌ิ', lab:'短元', cls:'c-vs'}] },
+    { c: '◌ึ', cat: 'v', t: '短元音', b: 'c-vs', p: 'ue', selfTone: '促音', ty: '单元音', k: 'Y', pairs: [{tag:'对照', char:'◌ื', lab:'长元', cls:'c-vl'}] },
+    { c: '◌ื', cat: 'v', t: '长元音', b: 'c-vl', p: 'ueue', selfTone: '舒声', ty: '单元音', k: 'N', pairs: [{tag:'对照', char:'◌ึ', lab:'短元', cls:'c-vs'}] },
+    { c: '◌ุ', cat: 'v', t: '短元音', b: 'c-vs', p: 'u', selfTone: '促音', ty: '单元音', k: '6', pairs: [{tag:'对照', char:'◌ู', lab:'长元', cls:'c-vl'}] },
+    { c: '◌ู', cat: 'v', t: '长元音', b: 'c-vl', p: 'uu', selfTone: '舒声', ty: '单元音', k: '7', pairs: [{tag:'对照', char:'◌ุ', lab:'短元', cls:'c-vs'}] },
+    { c: 'เ◌ะ', cat: 'v', t: '短元音', b: 'c-vs', p: 'e', selfTone: '促音', ty: '单元音', k: 'G+T', pairs: [{tag:'对照', char:'เ◌', lab:'长元', cls:'c-vl'}] },
+    { c: 'เ◌', cat: 'v', t: '长元音', b: 'c-vl', p: 'ee', selfTone: '舒声', ty: '单元音', k: 'G', pairs: [{tag:'对照', char:'เ◌ะ', lab:'短元', cls:'c-vs'}] },
+    { c: 'แ◌ะ', cat: 'v', t: '短元音', b: 'c-vs', p: 'ae', selfTone: '促音', ty: '单元音', k: 'C+T', pairs: [{tag:'对照', char:'แ◌', lab:'长元', cls:'c-vl'}] },
+    { c: 'แ◌', cat: 'v', t: '长元音', b: 'c-vl', p: 'aeae', selfTone: '舒声', ty: '单元音', k: 'C', pairs: [{tag:'对照', char:'แ◌ะ', lab:'短元', cls:'c-vs'}] },
+    { c: 'โ◌ะ', cat: 'v', t: '短元音', b: 'c-vs', p: 'o', selfTone: '促音', ty: '单元音', k: 'F+T', pairs: [{tag:'对照', char:'โ◌', lab:'长元', cls:'c-vl'}] },
+    { c: 'โ◌', cat: 'v', t: '长元音', b: 'c-vl', p: 'oo', selfTone: '舒声', ty: '单元音', k: 'F', pairs: [{tag:'对照', char:'โ◌ะ', lab:'短元', cls:'c-vs'}] },
+    { c: 'เ◌าะ', cat: 'v', t: '短元音', b: 'c-vs', p: 'aw', selfTone: '促音', ty: '单元音', k: 'G+1+T', pairs: [{tag:'对照', char:'◌อ', lab:'长元', cls:'c-vl'}] },
+    { c: '◌อ', cat: 'v', t: '长元音', b: 'c-vl', p: 'awaw', selfTone: '舒声', ty: '单元音', k: 'V', pairs: [{tag:'对照', char:'เ◌าะ', lab:'短元', cls:'c-vs'}] },
+    { c: 'เ◌อะ', cat: 'v', t: '短元音', b: 'c-vs', p: 'oe', selfTone: '促音', ty: '单元音', k: 'G+N+T', pairs: [{tag:'对照', char:'เ◌อ', lab:'长元', cls:'c-vl'}] },
+    { c: 'เ◌อ', cat: 'v', t: '长元音', b: 'c-vl', p: 'oeoe', selfTone: '舒声', ty: '单元音', k: 'G+N', pairs: [{tag:'对照', char:'เ◌อะ', lab:'短元', cls:'c-vs'}] },
+    { c: 'เ◌ียะ', cat: 'v', t: '短元音', b: 'c-vs', p: 'ia', selfTone: '促音', ty: '复合元音', k: 'G+U+T' },
+    { c: 'เ◌ีย', cat: 'v', t: '长元音', b: 'c-vl', p: 'iia', selfTone: '舒声', ty: '复合元音', k: 'G+U' },
+    { c: 'เ◌ือะ', cat: 'v', t: '短元音', b: 'c-vs', p: 'uea', selfTone: '促音', ty: '复合元音', k: 'G+N+T' },
+    { c: 'เ◌ือ', cat: 'v', t: '长元音', b: 'c-vl', p: 'uuea', selfTone: '舒声', ty: '复合元音', k: 'G+N' },
+    { c: '◌ัวะ', cat: 'v', t: '短元音', b: 'c-vs', p: 'ua', selfTone: '促音', ty: '复合元音', k: 'M+T' },
+    { c: '◌ัว', cat: 'v', t: '长元音', b: 'c-vl', p: 'uua', selfTone: '舒声', ty: '复合元音', k: 'M' }
+];
+
+let currentCards = [...data];
+let idx = 0;
+
+function render() {
+    const item = currentCards[idx];
+    document.getElementById('card').classList.remove('flipped');
+    setTimeout(() => {
+        document.getElementById('f-char').innerText = item.c;
+        document.getElementById('b-pron').innerText = item.p;
+        document.getElementById('b-tone').innerText = item.selfTone;
+        document.getElementById('b-type').innerText = item.ty;
+        document.getElementById('b-key').innerText = '键盘位置: ' + item.k;
+        document.getElementById('tone-box').innerHTML = getToneTable(item.cat);
+        const tag = document.getElementById('label');
+        tag.innerText = item.t; tag.className = 'tag ' + item.b;
+        const p1 = document.getElementById('p1'); const p2 = document.getElementById('p2');
+        p1.style.visibility = 'hidden'; p2.style.visibility = 'hidden';
+        if (item.pairs) {
+            if (item.pairs[0]) { p1.style.visibility = 'visible'; document.getElementById('p1-tag').innerText = item.pairs[0].tag; document.getElementById('p1-char').innerText = item.pairs[0].char; document.getElementById('p1-label').innerText = item.pairs[0].lab; document.getElementById('p1-label').className = 'pair-label ' + item.pairs[0].cls; }
+            if (item.pairs[1]) { p2.style.visibility = 'visible'; document.getElementById('p2-tag').innerText = item.pairs[1].tag; document.getElementById('p2-char').innerText = item.pairs[1].char; document.getElementById('p2-label').innerText = item.pairs[1].lab; document.getElementById('p2-label').className = 'pair-label ' + item.pairs[1].cls; }
+        }
+        document.getElementById('cur').innerText = idx + 1;
+        document.getElementById('total').innerText = currentCards.length;
+    }, 150);
+}
+
+function flip() { document.getElementById('card').classList.toggle('flipped'); }
+function next() { idx = (idx + 1) % currentCards.length; render(); }
+function prev() { idx = (idx - 1 + currentCards.length) % currentCards.length; render(); }
+function setFilter(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCards = (cat === 'all') ? [...data] : data.filter(i => i.cat === cat || (cat==='v' && i.cat==='v'));
+    idx = 0; render();
+}
+function doShuffle() { currentCards.sort(() => Math.random() - 0.5); idx = 0; render(); }
+render();
 </script>
 </body>
 </html>
