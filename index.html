@@ -13,8 +13,8 @@
         .filter-btn { padding: 8px 6px; border: 1px solid #eee; border-radius: 8px; background: #fff; cursor: pointer; font-size: 10px; font-weight: bold; flex: 1 1 18%; min-width: 55px; }
         .filter-btn.active { background: #1a73e8; color: white; border-color: #1a73e8; }
         
-        /* 卡片区域：高度固定防止抖动 */
-        .card-area { perspective: 1000px; width: 100%; height: 380px; cursor: pointer; margin-bottom: 15px; }
+        /* 卡片区域：缩小40% */
+        .card-area { perspective: 1000px; width: 100%; height: 260px; cursor: pointer; margin-bottom: 10px; }
         .card { position: relative; width: 100%; height: 100%; transition: transform 0.4s; transform-style: preserve-3d; border-radius: 20px; }
         .card.flipped { transform: rotateY(180deg); }
         .face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 20px; padding: 15px; box-sizing: border-box; background: white; border: 1px solid #eee; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
@@ -44,6 +44,23 @@
         .ctrl { display: flex; gap: 10px; width: 100%; justify-content: center; }
         .ctrl button { flex: 1; padding: 12px; border: none; border-radius: 12px; background: #1a73e8; color: white; cursor: pointer; font-weight: bold; font-size: 14px; max-width: 110px; }
         .progress { margin: 10px 0 5px; color: #888; font-size: 12px; }
+        
+        /* 统计栏 */
+        .stats-bar { display: flex; justify-content: space-between; margin-bottom: 10px; width: 100%; }
+        .stats-bar div { background: white; padding: 5px 10px; border-radius: 8px; font-size: 11px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); text-align: center; flex: 1; margin: 0 2px; }
+        .stats-bar .streak { background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; font-weight: bold; }
+        
+        /* 掌握度按钮 */
+        .mastery-btns { display: flex; gap: 6px; margin-bottom: 10px; width: 100%; }
+        .mastery-btns button { flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 8px; background: white; font-size: 11px; cursor: pointer; }
+        .mastery-btns button.selected-0 { background: #dc3545; color: white; border-color: #dc3545; }
+        .mastery-btns button.selected-1 { background: #fd7e14; color: white; border-color: #fd7e14; }
+        .mastery-btns button.selected-2 { background: #ff3107; color: white; border-color: #ff3107; }
+        .mastery-btns button.selected-3 { background: #28a745; color: white; border-color: #28a745; }
+        
+        /* 掌握度进度条 */
+        .mastery-bar { width: 100%; height: 4px; background: #eee; border-radius: 2px; margin-bottom: 10px; }
+        .mastery-fill { height: 100%; background: linear-gradient(90deg, #ff3107, #28a745); border-radius: 2px; transition: width 0.3s; }
 
         /* 颜色定义 */
         .c-mid { background: #28a745; } .c-high { background: #dc3545; } 
@@ -54,6 +71,14 @@
 <body>
 
 <div class="container">
+    <!-- 统计栏 -->
+    <div class="stats-bar">
+        <div>今日: <span id="s-today">0</span></div>
+        <div>总计: <span id="s-total">0</span></div>
+        <div>掌握: <span id="s-mastered">0</span></div>
+        <div class="streak">🔥 <span id="s-streak">0</span>天</div>
+    </div>
+
     <div class="filter-nav">
         <button class="filter-btn active" onclick="setFilter('all', this)">全部</button>
         <button class="filter-btn" onclick="setFilter('mid', this)">中(9)</button>
@@ -86,7 +111,18 @@
         <div class="pair-hint" id="p2"><span class="pair-tag" id="p2-tag">-</span><div class="pair-char" id="p2-char">-</div><div class="pair-label" id="p2-label">-</div></div>
     </div>
 
-    <div class="progress">进度: <span id="cur">1</span> / <span id="total">0</span></div>
+    <!-- 掌握度进度条 -->
+    <div class="mastery-bar"><div class="mastery-fill" id="mastery-fill" style="width:0%"></div></div>
+    
+    <!-- 掌握度评分 -->
+    <div class="mastery-btns">
+        <button onclick="setMastery(0)">不认识</button>
+        <button onclick="setMastery(1)">模糊</button>
+        <button onclick="setMastery(2)">熟悉</button>
+        <button onclick="setMastery(3)">掌握</button>
+    </div>
+
+    <div class="progress">进度: <span id="cur">1</span> / <span id="total">0</span> <span id="mastery-text" style="color:#28a745"></span></div>
     <div class="ctrl">
         <button onclick="prev()">上一个</button>
         <button style="background:#6f42c1" onclick="doShuffle()">随机</button>
@@ -218,6 +254,68 @@ function setFilter(cat, btn) {
     idx = 0; render();
 }
 function doShuffle() { currentCards.sort(() => Math.random() - 0.5); idx = 0; render(); }
+
+// 本地存储
+const STORAGE_KEY = 'thaicard_progress';
+const STATS_KEY = 'thaicard_stats';
+
+function loadProgress() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch { return {}; } }
+function saveProgress(p) { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
+function loadStats() { try { return JSON.parse(localStorage.getItem(STATS_KEY)) || { today: {}, streak: 1, lastDate: null, totalCards: 0 }; } catch { return { today: {}, streak: 1, lastDate: null, totalCards: 0 }; } }
+function saveStats(s) { localStorage.setItem(STATS_KEY, JSON.stringify(s)); }
+function getTodayKey() { return new Date().toISOString().slice(0, 10); }
+
+function ensureStreak(stats) {
+    const today = getTodayKey();
+    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    if (stats.lastDate === today) return stats;
+    if (stats.lastDate === yesterday) {} else if (stats.lastDate && stats.lastDate !== today) { stats.streak = 1; }
+    return stats;
+}
+
+function recordStudy(cardId, mastery) {
+    const progress = loadProgress();
+    if (!progress[cardId]) progress[cardId] = { m: 0, count: 0 };
+    progress[cardId].m = mastery;
+    progress[cardId].count++;
+    saveProgress(progress);
+
+    const stats = ensureStreak(loadStats());
+    const today = getTodayKey();
+    stats.lastDate = today;
+    if (!stats.today[today]) stats.today[today] = [];
+    if (!stats.today[today].includes(cardId)) stats.today[today].push(cardId);
+    stats.totalCards++;
+    stats.streak = Math.max(stats.streak, 1);
+    saveStats(stats);
+    updateStats();
+}
+
+function updateStats() {
+    const stats = ensureStreak(loadStats());
+    const today = getTodayKey();
+    const todayCount = stats.today[today] ? stats.today[today].length : 0;
+    const progress = loadProgress();
+    const mastered = Object.values(progress).filter(p => p.m >= 3).length;
+    document.getElementById('s-today').innerText = todayCount;
+    document.getElementById('s-total').innerText = stats.totalCards || 0;
+    document.getElementById('s-mastered').innerText = mastered;
+    document.getElementById('s-streak').innerText = stats.streak;
+}
+
+function setMastery(level) {
+    const item = currentCards[idx];
+    recordStudy(item.c, level);
+    const progress = loadProgress();
+    const m = progress[item.c]?.m || 0;
+    document.getElementById('mastery-fill').style.width = (m / 3 * 100) + '%';
+    document.getElementById('mastery-text').innerText = m > 0 ? ['不认识', '模糊', '熟悉', '掌握'][m] : '';
+    document.querySelectorAll('.mastery-btns button').forEach((btn, i) => {
+        btn.classList.toggle('selected-' + i, i === m);
+    });
+    setTimeout(next, 300);
+}
+
 render();
 </script>
 </body>
