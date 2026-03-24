@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泰语全体系学习卡</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Leelawadee UI', 'Thonburi', 'Tahoma', 'PingFang SC', sans-serif; background: #f4f7f9; display: flex; flex-direction: column; align-items: center; padding: 15px; min-height: 100vh; }
+        .container { width: 100%; max-width: 450px; display: flex; flex-direction: column; align-items: center; }
+
+        /* 统计栏 */
+        .stats-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; background: white; padding: 10px 15px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); margin-bottom: 12px; }
+        .stat-item { text-align: center; flex: 1; }
+        .stat-num { font-size: 20px; font-weight: bold; color: #1a73e8; }
+        .stat-label { font-size: 10px; color: #999; margin-top: 2px; }
+        .streak-badge { background: linear-gradient(135deg, #ff6b6b, #ee5a24); color: white; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 4px; }
+
+        /* 导航 */
+        .filter-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 15px; background: white; padding: 10px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); width: 100%; }
+        .filter-btn { padding: 8px 6px; border: 1px solid #eee; border-radius: 8px; background: #fff; cursor: pointer; font-size: 10px; font-weight: bold; flex: 1 1 18%; min-width: 55px; transition: all 0.2s; }
+        .filter-btn.active { background: #1a73e8; color: white; border-color: #1a73e8; }
+        .filter-btn:active { transform: scale(0.95); }
+
+        /* 收藏筛选 */
+        .filter-row { display: flex; gap: 6px; width: 100%; margin-bottom: 12px; }
+        .filter-row button { flex: 1; padding: 6px; border: 1px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 11px; color: #666; transition: all 0.2s; }
+        .filter-row button.active { background: #fff3cd; color: #856404; border-color: #ffc107; }
+
+        /* 卡片区域 */
+        .card-area { perspective: 1000px; width: 100%; height: 380px; cursor: pointer; margin-bottom: 12px; }
+        .card { position: relative; width: 100%; height: 100%; transition: transform 0.4s; transform-style: preserve-3d; border-radius: 20px; }
+        .card.flipped { transform: rotateY(180deg); }
+        .face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 20px; padding: 15px; background: white; border: 1px solid #eee; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .back { transform: rotateY(180deg); background: #fcfcfc; justify-content: space-around; }
+
+        /* 卡片内部 */
+        .card-header { position: absolute; top: 12px; left: 12px; right: 12px; display: flex; justify-content: space-between; align-items: flex-start; }
+        .tag { font-size: 11px; padding: 4px 10px; border-radius: 8px; color: white; font-weight: bold; }
+        .star-btn { background: none; border: none; font-size: 22px; cursor: pointer; transition: transform 0.2s; padding: 2px; }
+        .star-btn:active { transform: scale(1.3); }
+        .star-btn .starred { color: #ffc107; }
+        .star-btn .unstarred { color: #ddd; }
+        .main-char { font-size: 95px; color: #333; line-height: 1.2; }
+        .card-hint { position: absolute; bottom: 15px; font-size: 11px; color: #bbb; }
+
+        .p-text { font-size: 28px; color: #1a73e8; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .tone-icon { font-size: 13px; background: #e1ecf4; padding: 2px 6px; border-radius: 4px; color: #1a73e8; font-weight: normal; }
+        .type-tag { font-size: 13px; color: #e67e22; font-weight: bold; }
+        #tone-box { width: 100%; margin: 5px 0; }
+        .tone-table { width: 100%; border-collapse: collapse; font-size: 10px; background: white; border: 1px solid #ddd; }
+        .tone-table th { background: #f0f0f0; padding: 4px 2px; border: 1px solid #ddd; }
+        .tone-table td { padding: 6px 2px; border: 1px solid #ddd; text-align: center; }
+        .highlight-tone { color: #dc3545; font-weight: bold; font-size: 12px; }
+        .kbd { font-size: 11px; color: #999; }
+
+        /* 关联卡 */
+        .pairs-row { display: flex; gap: 8px; justify-content: center; width: 100%; margin-bottom: 12px; height: 100px; }
+        .pair-hint { flex: 1; max-width: 130px; background: white; border-radius: 12px; border: 2px dashed #ddd; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; padding: 5px; }
+        .pair-tag { position: absolute; top: 4px; font-size: 9px; color: #aaa; }
+        .pair-char { font-size: 32px; color: #333; margin-top: 8px; }
+        .pair-label { font-size: 9px; padding: 2px 4px; border-radius: 4px; color: white; margin-top: 4px; }
+
+        /* 掌握度指示器 */
+        .mastery-bar { width: 100%; height: 6px; background: #eee; border-radius: 3px; margin-bottom: 8px; overflow: hidden; }
+        .mastery-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; background: linear-gradient(90deg, #ffc107, #28a745); }
+
+        /* 控制区 */
+        .progress { margin: 5px 0; color: #888; font-size: 12px; width: 100%; display: flex; justify-content: space-between; }
+        .ctrl { display: flex; gap: 10px; width: 100%; justify-content: center; }
+        .ctrl button { flex: 1; padding: 12px; border: none; border-radius: 12px; background: #1a73e8; color: white; cursor: pointer; font-weight: bold; font-size: 14px; max-width: 110px; transition: all 0.15s; }
+        .ctrl button:active { transform: scale(0.95); opacity: 0.9; }
+
+        /* 掌握度评分按钮 */
+        .mastery-btns { display: flex; gap: 8px; width: 100%; margin-top: 10px; justify-content: center; }
+        .mastery-btn { padding: 8px 14px; border: 2px solid #eee; border-radius: 10px; background: white; cursor: pointer; font-size: 12px; color: #666; transition: all 0.2s; }
+        .mastery-btn:active { transform: scale(0.95); }
+        .mastery-btn.m-0 { border-color: #dc3545; }
+        .mastery-btn.m-0.selected { background: #dc3545; color: white; }
+        .mastery-btn.m-1 { border-color: #fd7e14; }
+        .mastery-btn.m-1.selected { background: #fd7e14; color: white; }
+        .mastery-btn.m-2 { border-color: #ffc107; }
+        .mastery-btn.m-2.selected { background: #ffc107; color: white; }
+        .mastery-btn.m-3 { border-color: #28a745; }
+        .mastery-btn.m-3.selected { background: #28a745; color: white; }
+
+        /* Toast 提示 */
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px); background: #333; color: white; padding: 10px 20px; border-radius: 10px; font-size: 13px; opacity: 0; transition: all 0.3s ease; z-index: 100; pointer-events: none; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* 颜色 */
+        .c-mid { background: #28a745; } .c-high { background: #dc3545; }
+        .c-low-p { background: #fd7e14; } .c-low-s { background: #e67e22; }
+        .c-vs { background: #6f42c1; } .c-vl { background: #17a2b8; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- 统计栏 -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-num" id="s-today">0</div>
+            <div class="stat-label">今日学习</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num" id="s-total">0</div>
+            <div class="stat-label">累计学习</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num" id="s-mastered">0</div>
+            <div class="stat-label">已掌握</div>
+        </div>
+        <div class="streak-badge" id="s-streak">🔥 1天</div>
+    </div>
+
+    <!-- 分类导航 -->
+    <div class="filter-nav" id="filter-nav"></div>
+
+    <!-- 额外筛选 -->
+    <div class="filter-row">
+        <button id="f-starred" onclick="toggleStarFilter()">⭐ 只看收藏</button>
+        <button id="f-weak" onclick="toggleWeakFilter()">💪 优先薄弱</button>
+    </div>
+
+    <!-- 卡片 -->
+    <div class="card-area" onclick="flip()">
+        <div class="card" id="card">
+            <div class="face front">
+                <div class="card-header">
+                    <span id="label" class="tag"></span>
+                    <button class="star-btn" onclick="event.stopPropagation(); toggleStar()">
+                        <span id="star-icon" class="unstarred">☆</span>
+                    </button>
+                </div>
+                <div class="main-char" id="f-char">ก</div>
+                <div class="card-hint">点击翻转</div>
+            </div>
+            <div class="face back">
+                <div class="p-text">
+                    <span id="b-pron">-</span>
+                    <span class="tone-icon" id="b-tone">-</span>
+                </div>
+                <div class="type-tag" id="b-type">-</div>
+                <div id="tone-box"></div>
+                <div class="kbd" id="b-key">-</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 掌握度进度条 -->
+    <div class="mastery-bar"><div class="mastery-fill" id="mastery-fill" style="width:0%"></div></div>
+
+    <!-- 关联卡 -->
+    <div class="pairs-row" id="pairs-row">
+        <div class="pair-hint" id="p1"><span class="pair-tag" id="p1-tag">-</span><div class="pair-char" id="p1-char">-</div><div class="pair-label" id="p1-label">-</div></div>
+        <div class="pair-hint" id="p2"><span class="pair-tag" id="p2-tag">-</span><div class="pair-char" id="p2-char">-</div><div class="pair-label" id="p2-label">-</div></div>
+    </div>
+
+    <!-- 掌握度评分 -->
+    <div class="mastery-btns">
+        <button class="mastery-btn m-0" onclick="setMastery(0)">不认识</button>
+        <button class="mastery-btn m-1" onclick="setMastery(1)">模糊</button>
+        <button class="mastery-btn m-2" onclick="setMastery(2)">熟悉</button>
+        <button class="mastery-btn m-3" onclick="setMastery(3)">掌握</button>
+    </div>
+
+    <!-- 进度 & 控制 -->
+    <div class="progress">
+        <span>进度: <span id="cur">1</span> / <span id="total">0</span></span>
+        <span id="mastery-text" style="color:#28a745"></span>
+    </div>
+    <div class="ctrl">
+        <button onclick="prev()">上一个</button>
+        <button style="background:#6f42c1" onclick="doShuffle()">随机</button>
+        <button onclick="next()">下一个</button>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ========== 内嵌数据层 ==========
+const CATEGORIES = [
+    { "id": "all", "label": "全部" },
+    { "id": "mid", "label": "中(9)" },
+    { "id": "high", "label": "高(11)" },
+    { "id": "low-p", "label": "孪低(14)" },
+    { "id": "low-s", "label": "单低(10)" },
+    { "id": "v", "label": "元音(24)" }
+];
+
+const CARDS = [
+    { "c": "ก", "cat": "mid", "t": "中辅音", "b": "c-mid", "p": "Kor", "selfTone": "1声(平)", "ty": "不送气清音", "k": "D", "pairs": [] },
+    { "c": "จ", "cat": "mid", "t": "中辅音", "b": "c-mid", "p": "Jor", "selfTone": "1声(平)", "ty": "不送气清音", "k": "0", "pairs": [] },
+    { "c": "ด", "cat": "mid", "t": "中辅音", "b": "c-mid", "p": "Dor", "selfTone": "1声(平)", "ty": "浊音", "k": "F", "pairs": [{ "tag": "同音/清浊", "char": "ต", "lab": "中辅-清", "cls": "c-mid" }, { "tag": "同音", "char": "ฎ", "lab": "中辅", "cls": "c-mid" }] },
+    { "c": "ต", "cat": "mid", "t": "中辅音", "b": "c-mid", "p": "Tor", "selfTone": "1声(平)", "ty": "不送气清音", "k": "9", "pairs": [{ "tag": "清浊对应", "char": "ด", "lab": "中辅-浊", "cls": "c-mid" }] },
+    { "c": "บ", "cat": "mid", "t": "中辅音", "b": "c-mid", "p": "Bor", "selfTone": "1声(平)", "ty": "浊音", "k": "[", "pairs": [{ "tag": "清浊对应", "char": "ป", "lab": "中辅-清", "cls": "c-mid" }] },
+    { "c": "ป", "cat": "mid", "t": "中辅音", "b": "c-mid", "p": "Por", "selfTone": "1声(平)", "ty": "不送气清音", "k": "X", "pairs": [{ "tag": "清浊对应", "char": "บ", "lab": "中辅-浊", "cls": "c-mid" }] },
+    { "c": "อ", "cat": "mid", "t": "中辅音", "b": "c-mid", "p": "Or", "selfTone": "1声(平)", "ty": "零辅音", "k": "V", "pairs": [] },
+    { "c": "ฎ", "cat": "mid", "t": "中辅音", "b": "c-mid", "p": "Dor", "selfTone": "1声(平)", "ty": "浊音", "k": "E", "pairs": [{ "tag": "同音", "char": "ด", "lab": "中辅", "cls": "c-mid" }] },
+    { "c": "ฏ", "cat": "mid", "t": "中辅音", "b": "c-mid", "p": "Tor", "selfTone": "1声(平)", "ty": "清音", "k": "D(S)", "pairs": [{ "tag": "同音", "char": "ต", "lab": "中辅", "cls": "c-mid" }] },
+
+    { "c": "ข", "cat": "high", "t": "高辅音", "b": "c-high", "p": "Kor", "selfTone": "5声(升)", "ty": "送气清音", "k": "-", "pairs": [{ "tag": "对应低音", "char": "ค", "lab": "低辅", "cls": "c-low-p" }] },
+    { "c": "ฃ", "cat": "high", "t": "高辅音", "b": "c-high", "p": "Kor", "selfTone": "5声(升)", "ty": "废弃", "k": "\\", "pairs": [] },
+    { "c": "ฉ", "cat": "high", "t": "高辅音", "b": "c-high", "p": "Chor", "selfTone": "5声(升)", "ty": "送气", "k": "C(S)", "pairs": [{ "tag": "对应低音", "char": "ช", "lab": "低辅", "cls": "c-low-p" }] },
+    { "c": "ฐ", "cat": "high", "t": "高辅音", "b": "c-high", "p": "Tor", "selfTone": "5声(升)", "ty": "送气", "k": "K(S)", "pairs": [{ "tag": "对应低音", "char": "ท", "lab": "低辅", "cls": "c-low-p" }] },
+    { "c": "ถ", "cat": "high", "t": "高辅音", "b": "c-high", "p": "Tor", "selfTone": "5声(升)", "ty": "送气", "k": "5", "pairs": [{ "tag": "对应低音", "char": "ท", "lab": "低辅", "cls": "c-low-p" }] },
+    { "c": "ผ", "cat": "high", "t": "高辅音", "b": "c-high", "p": "Por", "selfTone": "5声(升)", "ty": "送气", "k": "Z", "pairs": [{ "tag": "对应低音", "char": "พ", "lab": "低辅", "cls": "c-low-p" }] },
+    { "c": "ฝ", "cat": "high", "t": "高辅音", "b": "c-high", "p": "For", "selfTone": "5声(升)", "ty": "擦音", "k": "/", "pairs": [{ "tag": "对应低音", "char": "ฟ", "lab": "低辅", "cls": "c-low-p" }] },
+    { "c": "ศ", "cat": "high", "t": "高辅音", "b": "c-high", "p": "Sor", "selfTone": "5声(升)", "ty": "擦音", "k": "L(S)", "pairs": [{ "tag": "对应低音", "char": "ซ", "lab": "低辅", "cls": "c-low-p" }] },
+    { "c": "ษ", "cat": "high", "t": "高辅音", "b": "c-high", "p": "Sor", "selfTone": "5声(升)", "ty": "擦音", "k": "K", "pairs": [{ "tag": "对应低音", "char": "ซ", "lab": "低辅", "cls": "c-low-p" }] },
+    { "c": "ส", "cat": "high", "t": "高辅音", "b": "c-high", "p": "Sor", "selfTone": "5声(升)", "ty": "擦音", "k": "L", "pairs": [{ "tag": "对应低音", "char": "ซ", "lab": "低辅音", "cls": "c-low-p" }] },
+    { "c": "ห", "cat": "high", "t": "高辅音", "b": "c-high", "p": "Hor", "selfTone": "5声(升)", "ty": "擦音", "k": "S", "pairs": [{ "tag": "对应低音", "char": "ฮ", "lab": "低辅", "cls": "c-low-p" }] },
+
+    { "c": "ค", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Kor", "selfTone": "1声(平)", "ty": "送气", "k": "8", "pairs": [{ "tag": "对应高音", "char": "ข", "lab": "高辅", "cls": "c-high" }] },
+    { "c": "ฆ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Kor", "selfTone": "1声(平)", "ty": "送气", "k": "S(S)", "pairs": [] },
+    { "c": "ช", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Chor", "selfTone": "1声(平)", "ty": "送气", "k": "=", "pairs": [{ "tag": "对应高音", "char": "ฉ", "lab": "高辅", "cls": "c-high" }] },
+    { "c": "ฌ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Chor", "selfTone": "1声(平)", "ty": "送气", "k": "G(S)", "pairs": [] },
+    { "c": "ซ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Sor", "selfTone": "1声(平)", "ty": "擦音", "k": ":", "pairs": [{ "tag": "对应高音", "char": "ส", "lab": "高辅", "cls": "c-high" }] },
+    { "c": "ฑ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Tor", "selfTone": "1声(平)", "ty": "送气", "k": "R(S)", "pairs": [] },
+    { "c": "ฒ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Tor", "selfTone": "1声(平)", "ty": "送气", "k": "T(S)", "pairs": [] },
+    { "c": "ท", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Tor", "selfTone": "1声(平)", "ty": "送气", "k": "M", "pairs": [{ "tag": "对应高音", "char": "ถ", "lab": "高辅", "cls": "c-high" }] },
+    { "c": "ธ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Tor", "selfTone": "1声(平)", "ty": "送气", "k": "O(S)", "pairs": [] },
+    { "c": "พ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Por", "selfTone": "1声(平)", "ty": "送气", "k": "P", "pairs": [{ "tag": "对应高音", "char": "ผ", "lab": "高辅", "cls": "c-high" }] },
+    { "c": "ฟ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "For", "selfTone": "1声(平)", "ty": "擦音", "k": "A", "pairs": [{ "tag": "对应高音", "char": "ฝ", "lab": "高辅", "cls": "c-high" }] },
+    { "c": "ภ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Por", "selfTone": "1声(平)", "ty": "送气", "k": "4", "pairs": [] },
+    { "c": "ฮ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Hor", "selfTone": "1声(平)", "ty": "擦音", "k": "V(S)", "pairs": [{ "tag": "对应高音", "char": "ห", "lab": "高辅", "cls": "c-high" }] },
+    { "c": "ฬ", "cat": "low-p", "t": "孪低音", "b": "c-low-p", "p": "Lor", "selfTone": "1声(平)", "ty": "边音", "k": "> (S)", "pairs": [] },
+
+    { "c": "ง", "cat": "low-s", "t": "单低音", "b": "c-low-s", "p": "Ngor", "selfTone": "1声(平)", "ty": "鼻音", "k": "'", "pairs": [{ "tag": "变高辅", "char": "หง", "lab": "高组", "cls": "c-high" }] },
+    { "c": "ญ", "cat": "low-s", "t": "单低音", "b": "c-low-s", "p": "Yor", "selfTone": "1声(平)", "ty": "鼻音", "k": "P(S)", "pairs": [{ "tag": "变高辅", "char": "หญ", "lab": "高组", "cls": "c-high" }] },
+    { "c": "ณ", "cat": "low-s", "t": "单低音", "b": "c-low-s", "p": "Nor", "selfTone": "1声(平)", "ty": "鼻音", "k": "I(S)", "pairs": [{ "tag": "同音", "char": "น", "lab": "单低", "cls": "c-low-s" }] },
+    { "c": "น", "cat": "low-s", "t": "单低音", "b": "c-low-s", "p": "Nor", "selfTone": "1声(平)", "ty": "鼻音", "k": "O", "pairs": [{ "tag": "变高辅", "char": "หน", "lab": "高组", "cls": "c-high" }] },
+    { "c": "ม", "cat": "low-s", "t": "单低音", "b": "c-low-s", "p": "Mor", "selfTone": "1声(平)", "ty": "鼻音", "k": ",", "pairs": [{ "tag": "变高辅", "char": "หม", "lab": "高组", "cls": "c-high" }] },
+    { "c": "ย", "cat": "low-s", "t": "单低音", "b": "c-low-s", "p": "Yor", "selfTone": "1声(平)", "ty": "半元音", "k": "P", "pairs": [{ "tag": "变高辅", "char": "หย", "lab": "高组", "cls": "c-high" }] },
+    { "c": "ร", "cat": "low-s", "t": "单低音", "b": "c-low-s", "p": "Ror", "selfTone": "1声(平)", "ty": "弹舌音", "k": "I", "pairs": [{ "tag": "变高辅", "char": "หร", "lab": "高组", "cls": "c-high" }] },
+    { "c": "ล", "cat": "low-s", "t": "单低音", "b": "c-low-s", "p": "Lor", "selfTone": "1声(平)", "ty": "边音", "k": "]", "pairs": [{ "tag": "变高辅", "char": "หล", "lab": "高组", "cls": "c-high" }] },
+    { "c": "ว", "cat": "low-s", "t": "单低音", "b": "c-low-s", "p": "Wor", "selfTone": "1声(平)", "ty": "半元音", "k": ";", "pairs": [{ "tag": "变高辅", "char": "หว", "lab": "高组", "cls": "c-high" }] },
+    { "c": "ฬ", "cat": "low-s", "t": "单低音", "b": "c-low-s", "p": "Lor", "selfTone": "1声(平)", "ty": "边音", "k": ">(S)", "pairs": [] },
+
+    { "c": "◌ะ", "cat": "v", "t": "短元音", "b": "c-vs", "p": "a", "selfTone": "促音", "ty": "单元音", "k": "T", "pairs": [{ "tag": "对照", "char": "◌า", "lab": "长元", "cls": "c-vl" }] },
+    { "c": "◌า", "cat": "v", "t": "长元音", "b": "c-vl", "p": "aa", "selfTone": "舒声", "ty": "单元音", "k": "1", "pairs": [{ "tag": "对照", "char": "◌ะ", "lab": "短元", "cls": "c-vs" }] },
+    { "c": "◌ิ", "cat": "v", "t": "短元音", "b": "c-vs", "p": "i", "selfTone": "促音", "ty": "单元音", "k": "B", "pairs": [{ "tag": "对照", "char": "◌ี", "lab": "长元", "cls": "c-vl" }] },
+    { "c": "◌ี", "cat": "v", "t": "长元音", "b": "c-vl", "p": "ii", "selfTone": "舒声", "ty": "单元音", "k": "U", "pairs": [{ "tag": "对照", "char": "◌ิ", "lab": "短元", "cls": "c-vs" }] },
+    { "c": "◌ึ", "cat": "v", "t": "短元音", "b": "c-vs", "p": "ue", "selfTone": "促音", "ty": "单元音", "k": "Y", "pairs": [{ "tag": "对照", "char": "◌ื", "lab": "长元", "cls": "c-vl" }] },
+    { "c": "◌ื", "cat": "v", "t": "长元音", "b": "c-vl", "p": "ueue", "selfTone": "舒声", "ty": "单元音", "k": "N", "pairs": [{ "tag": "对照", "char": "◌ึ", "lab": "短元", "cls": "c-vs" }] },
+    { "c": "◌ุ", "cat": "v", "t": "短元音", "b": "c-vs", "p": "u", "selfTone": "促音", "ty": "单元音", "k": "6", "pairs": [{ "tag": "对照", "char": "◌ู", "lab": "长元", "cls": "c-vl" }] },
+    { "c": "◌ู", "cat": "v", "t": "长元音", "b": "c
