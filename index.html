@@ -2,122 +2,118 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>泰语学习卡</title>
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        html,body{height:100%;overflow:hidden;touch-action:manipulation}
-        body{font-family:'Leelawadee UI',Thonburi,Tahoma,sans-serif;background:#f4f7f9;display:flex;flex-direction:column;padding:4px}
-        .container{width:100%;max-width:400px;margin:0 auto;flex:1;display:flex;flex-direction:column;overflow:hidden}
-        .top{display:flex;gap:4px;align-items:center;margin-bottom:4px;flex-shrink:0}
-        .top>div{background:#fff;border-radius:6px;padding:4px 8px;font-size:11px;box-shadow:0 1px3px rgba(0,0,0,0.05)}
-        .top .streak{background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff;font-weight:bold;padding:4px 6px}
-        .nav{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:4px;flex-shrink:0}
-        .nav button{flex:1 1 15%;min-width:40px;padding:4px 2px;font-size:9px;border:1px solid #eee;border-radius:4px;background:#fff;cursor:pointer}
-        .nav button.active{background:#1a73e8;color:#fff;border-color:#1a73e8}
-        .card{flex:1;position:relative;background:#fff;border-radius:10px;box-shadow:0 2px8px rgba(0,0,0,0.08);margin-bottom:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;cursor:pointer;transform-style:preserve-3d;transition:transform 0.4s}
-        .card.flipped{transform:rotateY(180deg)}
-        .card-face{position:absolute;width:100%;height:100%;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px}
-        .card-back{transform:rotateY(180deg)}
-        .main-char{font-size:60px;color:#333}
-        .hint{font-size:9px;color:#bbb;margin-top:4px}
-        .info{font-size:14px;color:#1a73e8;font-weight:bold;display:flex;align-items:center;gap:4px}
-        .tone{font-size:10px;background:#e1ecf4;padding:2px4px;border-radius:3px;color:#1a73e8}
-        .type{font-size:11px;color:#e67e22;font-weight:bold;margin:2px0}
-        .tone-table{width:95%;font-size:8px;border-collapse:collapse;margin:2px0}
-        .tone-table th,.tone-table td{padding:2px;border:1px solid #ddd;text-align:center}
-        .tone-table th{background:#f0f0f0}
-        .hl{color:#d32f2f;font-weight:bold}
-        .kbd{font-size:9px;color:#999}
-        .pairs{display:flex;gap:4px;margin-bottom:3px;flex-shrink:0}
-        .pair{flex:1;background:#fff;border-radius:6px;border:1px dashed #ddd;padding:2px;text-align:center;font-size:8px}
-        .pair .ch{font-size:16px;color:#333}
-        .pair .lb{font-size:7px;color:#fff;padding:1px3px;border-radius:3px;margin-top:2px}
-        .mastery{display:flex;gap:3px;margin-bottom:3px;flex-shrink:0}
-        .mastery button{flex:1;padding:4px;font-size:10px;border:1px solid #ddd;border-radius:4px;background:#fff;cursor:pointer}
-        .mastery button:nth-child(1).sel{background:#dc3545;color:#fff}
-        .mastery button:nth-child(2).sel{background:#fd7e14;color:#fff}
-        .mastery button:nth-child(3).sel{background:#ff3107;color:#fff}
-        .mastery button:nth-child(4).sel{background:#28a745;color:#fff}
-        .bar{height:3px;background:#eee;border-radius:2px;margin-bottom:3px;flex-shrink:0}
-        .bar-fill{height:100%;background:linear-gradient(90deg,#ff3107,#28a745);border-radius:2px;transition:width .3s}
-        .bottom{display:flex;justify-content:space-between;align-items:center;font-size:10px;color:#888;margin-bottom:2px;flex-shrink:0}
-        .ctrl{display:flex;gap:4px;flex-shrink:0}
-        .ctrl button{flex:1;padding:6px;font-size:11px;border:none;border-radius:6px;background:#1a73e8;color:#fff;cursor:pointer}
-        .ctrl button:nth-child(2){background:#6f42c1}
-        .c-mid{background:#28a745}.c-high{background:#dc3545}.c-low-p{background:#fd7e14}.c-low-s{background:#e67e22}.c-vs{background:#6f42c1}.c-vl{background:#17a2b8}
-        .toast{position:fixed;bottom:10px;left:50%;transform:translateX(-50%) translateY(60px);background:#333;color:#fff;padding:6px12px;border-radius:6px;font-size:11px;opacity:0;transition:all .3s;z-index:100}
-        .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+        html,body{height:100%;overflow:hidden}
+        body{font-family:'Leelawadee UI',Thonburi,Tahoma,sans-serif;background:#f4f7f9;display:flex;flex-direction:column;padding:6px}
+        .box{width:100%;max-width:400px;margin:0 auto;flex:1;display:flex;flex-direction:column;overflow:hidden}
+        .bar{display:flex;gap:4px;margin-bottom:4px;flex-shrink:0}
+        .bar>div{background:#fff;padding:4px 8px;border-radius:6px;font-size:11px;box-shadow:0 1px2px rgba(0,0,0,0.05)}
+        .bar .red{background:linear-gradient(135deg,#ff6b6b,#ee5a24);color:#fff;font-weight:bold}
+        .nav{display:flex;flex-wrap:wrap;gap:2px;margin-bottom:4px}
+        .nav button{flex:1 1 15%;padding:4px 1px;font-size:9px;border:1px solid #eee;border-radius:4px;background:#fff;cursor:pointer}
+        .nav button.sel{background:#1a73e8;color:#fff;border-color:#1a73e8}
+        .card{position:relative;flex:1;background:#fff;border-radius:10px;box-shadow:0 2px6px rgba(0,0,0,0.08);margin-bottom:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+        .char{font-size:55px;color:#333}
+        .hint{position:absolute;bottom:8px;font-size:9px;color:#bbb}
+        .back{position:absolute;width:100%;height:100%;background:#fcfcfc;border-radius:10px;display:none;flex-direction:column;align-items:center;justify-content:center;padding:10px}
+        .back.show{display:flex}
+        .p1{font-size:16px;color:#1a73e8;font-weight:bold;margin-bottom:4px}
+        .t1{font-size:10px;background:#e1ecf4;padding:2px 6px;border-radius:3px;color:#1a73e8}
+        .t2{font-size:11px;color:#e67e22;font-weight:bold;margin:2px 0}
+        .kb{font-size:10px;color:#999}
+        .tbl{width:90%;font-size:8px;border-collapse:collapse;margin:4px 0}
+        .tbl td,.tbl th{padding:2px;border:1px solid #ddd;text-align:center}
+        .tbl th{background:#f0f0f0}
+        .redtxt{color:#d32f2f;font-weight:bold}
+        .pairs{display:flex;gap:4px;margin-bottom:3px}
+        .pair{flex:1;background:#fff;padding:4px;border-radius:6px;text-align:center}
+        .pairc{font-size:18px;color:#333}
+        .pairl{font-size:8px;color:#fff;padding:1px 4px;border-radius:3px;margin-top:2px;display:inline-block}
+        .btns{display:flex;gap:3px;margin-bottom:3px}
+        .btns button{flex:1;padding:5px;font-size:10px;border:1px solid #ddd;border-radius:4px;background:#fff;cursor:pointer}
+        .btns button.s0{background:#dc3545;color:#fff}
+        .btns button.s1{background:#fd7e14;color:#fff}
+        .btns button.s2{background:#ff3107;color:#fff}
+        .btns button.s3{background:#28a745;color:#fff}
+        .prg{height:3px;background:#eee;border-radius:2px;margin-bottom:3px}
+        .prgf{height:100%;background:linear-gradient(90deg,#ff3107,#28a745);border-radius:2px;transition:width .3s}
+        .bot{display:flex;justify-content:space-between;font-size:10px;color:#888;margin-bottom:2px}
+        .ctr{display:flex;gap:4px}
+        .ctr button{flex:1;padding:8px;font-size:12px;border:none;border-radius:8px;background:#1a73e8;color:#fff;cursor:pointer}
+        .ctr button.b2{background:#6f42c1}
+        .c0{background:#28a745}.c1{background:#dc3545}.c2{background:#fd7e14}.c3{background:#e67e22}.c4{background:#6f42c1}.c5{background:#17a2b8}
+        .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(60px);background:#333;color:#fff;padding:8px 16px;border-radius:8px;font-size:12px;opacity:0;transition:all .3s;z-index:100}
+        .toast.on{transform:translateX(-50%) translateY(0);opacity:1}
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="top">
-        <div>今<span id="st">0</span></div>
-        <div>总<span id="ss">0</span></div>
-        <div>掌<span id="sm">0</span></div>
-        <div class="streak" id="sr">🔥0</div>
+<div class="box">
+    <div class="bar">
+        <div>今<span id="td">0</span></div>
+        <div>总<span id="tt">0</span></div>
+        <div>掌<span id="tm">0</span></div>
+        <div class="red" id="sk">🔥0</div>
     </div>
-    <div class="nav" id="nav"></div>
-    <div class="card" id="card" onclick="flipCard()">
-        <div class="card-face">
-            <div class="main-char" id="fc">ก</div>
-            <div class="hint">点击翻转</div>
+    <div class="nav" id="nv"></div>
+    <div class="card" onclick="flip()">
+        <div class="char" id="ch">ก</div>
+        <div class="hint">点击翻转</div>
+        <div class="back" id="bk">
+            <div class="p1" id="pr"></div>
+            <div class="t1" id="tn"></div>
+            <div class="t2" id="ty"></div>
+            <div class="tbl" id="tb"></div>
+            <div class="kb" id="kb"></div>
         </div>
-        <div class="card-face card-back">
-            <div class="info"><span id="bp"></span><span class="tone" id="bt"></span></div>
-            <div class="type" id="btype"></div>
-            <div id="tbox"></div>
-            <div class="kbd" id="bk"></div>
-        </div>
     </div>
-    <div class="pairs" id="pairs">
-        <div class="pair" id="p1"><div class="ch" id="p1c">-</div><div class="lb" id="p1l"></div></div>
-        <div class="pair" id="p2"><div class="ch" id="p2c">-</div><div class="lb" id="p2l"></div></div>
+    <div class="pairs">
+        <div class="pair" id="p1"><div class="pairc" id="p1c"></div><div class="pairl" id="p1l"></div></div>
+        <div class="pair" id="p2"><div class="pairc" id="p2c"></div><div class="pairl" id="p2l"></div></div>
     </div>
-    <div class="mastery">
-        <button onclick="setM(0)">不认识</button>
-        <button onclick="setM(1)">模糊</button>
-        <button onclick="setM(2)">熟悉</button>
-        <button onclick="setM(3)">掌握</button>
+    <div class="btns">
+        <button onclick="rate(0)">不认识</button>
+        <button onclick="rate(1)">模糊</button>
+        <button onclick="rate(2)">熟悉</button>
+        <button onclick="rate(3)">掌握</button>
     </div>
-    <div class="bar"><div class="bar-fill" id="bf" style="width:0%"></div></div>
-    <div class="bottom">
-        <span><span id="cur">1</span>/<span id="tot">0</span></span>
+    <div class="prg"><div class="prgf" id="pf" style="width:0%"></div></div>
+    <div class="bot">
+        <span><span id="cu">1</span>/<span id="to">0</span></span>
         <span id="mt" style="color:#28a745"></span>
     </div>
-    <div class="ctrl">
-        <button onclick="prev()">←</button>
-        <button onclick="rnd()">随机</button>
-        <button onclick="next()">→</button>
+    <div class="ctr">
+        <button onclick="go(-1)">←</button>
+        <button class="b2" onclick="shuf()">随机</button>
+        <button onclick="go(1)">→</button>
     </div>
 </div>
-<div class="toast" id="toast"></div>
+<div class="toast" id="ts"></div>
 <script>
-let D={c:[],cards:[]},C=[],i=0,cat='all',isFlip=false;
-const SK='tcp',STK='tcs';
-const lp=()=>JSON.parse(localStorage.getItem(SK)||'{}');
-const sp=p=>localStorage.setItem(SK,JSON.stringify(p));
-const ls=()=>JSON.parse(localStorage.getItem(STK)||'{"today":{},"streak":1}');
-const ss=s=>localStorage.setItem(STK,JSON.stringify(s));
-const tk=()=>new Date().toISOString().slice(0,10);
-const es=s=>{const t=tk(),y=new Date(Date.now()-864e6).toISOString().slice(0,10);if(s.lastDate===t)return s;if(s.lastDate!==y)s.streak=1;return s};
-const rs=(id,m)=>{const p=lp();p[id]={m,last:Date.now()};sp(p);const s=es(ls()),td=tk();s.lastDate=td;s.today[td]=(s.today[td]||[]);if(!s.today[td].includes(id))s.today[td].push(id);s.total=(s.total||0)+1;s.streak=Math.max(s.streak,1);ss(s)};
-const st=m=>{const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1200)};
-const tt=c=>{if(c==='mid')return'<table class="tone-table"><tr><th>声调</th><th>长</th><th>短</th></tr><tr><td>中辅</td><td>中</td><td>中</td></tr><tr><td>例</td><td><span class=hl>1</span></td><td><span class=hl>2</span></td></tr></table>';if(c==='high')return'<table class="tone-table"><tr><th>声调</th><th>长</th><th>短</th></tr><tr><td>高辅</td><td>中</td><td>低</td></tr><tr><td>例</td><td><span class=hl>5</span></td><td><span class=hl>2</span></td></tr></table>';if(c&&c.startsWith('low'))return'<table class="tone-table"><tr><th>声调</th><th>长</th><th>短</th></tr><tr><td>低辅</td><td>低</td><td>低</td></tr><tr><td>例</td><td><span class=hl>1</span></td><td><span class=hl>4</span></td></tr></table>';return'<div style=font-size:9px;color:#888>短元+促=促声</div>'};
-const bf=()=>{document.getElementById('nav').innerHTML=D.c.map(c=>`<button class=${c.id===cat?'active':''} onclick="sf('${c.id}',this)">${c.label}</button>`).join('')};
-const bc=()=>{C=D.cards.filter(x=>cat==='all'||x.cat===cat);i=0;render()};
-const ml=['不认识','模糊','熟悉','掌握'],mc=['#dc3545','#fd7e14','#ff3107','#28a745'];
-const render=()=>{if(!C.length)return;const x=C[i];const card=document.getElementById('card');card.classList.remove('flipped');isFlip=false;setTimeout(()=>{document.getElementById('fc').innerText=x.c;document.getElementById('bp').innerText=x.p;document.getElementById('bt').innerText=x.selfTone;document.getElementById('btype').innerText=x.ty;document.getElementById('bk').innerText='键盘:'+x.k;document.getElementById('tbox').innerHTML=tt(x.cat);const p1=document.getElementById('p1'),p2=document.getElementById('p2');p1.style.visibility=p2.style.visibility='hidden';if(x.pairs){if(x.pairs[0]){p1.style.visibility='visible';document.getElementById('p1c').innerText=x.pairs[0].char;const lb=document.getElementById('p1l');lb.innerText=x.pairs[0].lab;lb.className='lb c-'+(x.pairs[0].cls||'mid')}if(x.pairs[1]){p2.style.visibility='visible';document.getElementById('p2c').innerText=x.pairs[1].char;const lb=document.getElementById('p2l');lb.innerText=x.pairs[1].lab;lb.className='lb c-'+(x.pairs[1].cls||'mid')}}const m=lp()[x.c]?.m||0;document.getElementById('bf').style.width=(m/3*100)+'%';document.getElementById('mt').innerText=m?ml[m]:'';document.getElementById('mt').style.color=mc[m];document.querySelectorAll('.mastery button').forEach((b,j)=>b.classList.toggle('sel',j===m));document.getElementById('cur').innerText=i+1;document.getElementById('tot').innerText=C.length},150);updateStats()};
-const updateStats=()=>{const s=es(ls()),td=tk();document.getElementById('st').innerText=(s.today[td]||[]).length;document.getElementById('ss').innerText=s.total||0;document.getElementById('sm').innerText=Object.values(lp()).filter(p=>p.m>=3).length;document.getElementById('sr').innerText='🔥'+s.streak};
-const flipCard=()=>{const c=document.getElementById('card');isFlip=!isFlip;if(isFlip)c.classList.add('flipped');else c.classList.remove('flipped')};
-const next=()=>{if(!C.length)return;i=(i+1)%C.length;render()};
-const prev=()=>{if(!C.length)return;i=(i-1+C.length)%C.length;render()};
-const sf=(c,btn)=>{document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');cat=c;bc()};
-const setM=lv=>{rs(C[i].c,lv);render();if(lv>=3)st('🎉');setTimeout(next,400)};
-const rnd=()=>{C.sort(()=>Math.random()-.5);i=0;render();st('🎲')};
-document.addEventListener('keydown',e=>{if(e.key==='ArrowLeft')prev();else if(e.key==='ArrowRight')next();else if(e.key===' '||e.key==='Enter'){e.preventDefault();flipCard()}else if(e.key>='1'&&e.key<='4')setM(parseInt(e.key)-1)});
-fetch('data/cards.json').then(r=>r.json()).then(d=>{D=d;bf();bc()}).catch(e=>{console.error(e);document.getElementById('fc').innerText='加载失败'});
+var D={c:[]},L=[],I=0,CA='all',F=false;
+var SK='tc_p',SK2='tc_s';
+function gp(){try{return JSON.parse(localStorage.getItem(SK))||{}}catch{return{}}}
+function sp(p){localStorage.setItem(SK,JSON.stringify(p))}
+function gs(){try{return JSON.parse(localStorage.getItem(SK2))||{today:{},streak:1,total:0}}catch{return{today:{},streak:1,total:0}}}
+function ss(s){localStorage.setItem(SK2,JSON.stringify(s))}
+function td(){return new Date().toISOString().slice(0,10)}
+function es(s){var t=td(),y=new Date(Date.now()-864e5).toISOString().slice(0,10);if(s.last==t)return s;if(s.last!=y)s.streak=1;return s}
+function st(m){var t=document.getElementById('ts');t.innerText=m;t.classList.add('on');setTimeout(function(){t.classList.remove('on')},1200)}
+function tt(c){if(c=='mid')return'<table class="tbl"><tr><th>声</th><th>长</th><th>短</th></tr><tr><td>中</td><td>中</td><td>中</td></tr><tr><td>例</td><td><span class=redtxt>1</span></td><td><span class=redtxt>2</span></td></tr></table>';if(c=='high')return'<table class="tbl"><tr><th>声</th><th>长</th><th>短</th></tr><tr><td>高</td><td>中</td><td>低</td></tr><tr><td>例</td><td><span class=redtxt>5</span></td><td><span class=redtxt>2</span></td></tr></table>';if(c&&c.startsWith('low'))return'<table class="tbl"><tr><th>声</th><th>长</th><th>短</th></tr><tr><td>低</td><td>低</td><td>低</td></tr><tr><td>例</td><td><span class=redtxt>1</span></td><td><span class=redtxt>4</span></td></tr></table>';return'<div style=font-size:9px;color:#888>短+促=促声</div>'}
+function bn(){document.getElementById('nv').innerHTML=D.c.map(function(c){return'<button class="'+(c.id==CA?'sel':'')+'" onclick="sf(\''+c.id+'\',this)">'+c.label+'</button>'}).join('')}
+function fl(){L=D.cards.filter(function(x){return CA=='all'||x.cat==CA});I=0;dr()}
+var ml=['不认识','模糊','熟悉','掌握'],mc=['#dc3545','#fd7e14','#ff3107','#28a745'];
+function dr(){if(L.length==0)return;var x=L[I];var bk=document.getElementById('bk');bk.classList.remove('show');F=false;setTimeout(function(){document.getElementById('ch').innerText=x.c;document.getElementById('pr').innerText=x.p;document.getElementById('tn').innerText=x.selfTone;document.getElementById('ty').innerText=x.ty;document.getElementById('kb').innerText='键盘:'+x.k;document.getElementById('tb').innerHTML=tt(x.cat);var p1=document.getElementById('p1'),p2=document.getElementById('p2');p1.style.visibility=p2.style.visibility='hidden';if(x.pairs){if(x.pairs[0]){p1.style.visibility='visible';document.getElementById('p1c').innerText=x.pairs[0].char;var l1=document.getElementById('p1l');l1.innerText=x.pairs[0].lab;l1.className='pairl c'+(x.pairs[0].cls||'0').slice(-1)}if(x.pairs[1]){p2.style.visibility='visible';document.getElementById('p2c').innerText=x.pairs[1].char;var l2=document.getElementById('p2l');l2.innerText=x.pairs[1].lab;l2.className='pairl c'+(x.pairs[1].cls||'0').slice(-1)}}var m=gp()[x.c]||0;document.getElementById('pf').style.width=(m/3*100)+'%';document.getElementById('mt').innerText=m?ml[m]:'';document.getElementById('mt').style.color=mc[m];document.querySelectorAll('.btns button').forEach(function(b,i){b.className=i===m?'btns button s'+m:'btns button'});document.getElementById('cu').innerText=I+1;document.getElementById('to').innerText=L.length},150);up()}
+function up(){var s=es(gs()),t=td();document.getElementById('td').innerText=(s.today[t]||[]).length;document.getElementById('tt').innerText=s.total;document.getElementById('tm').innerText=Object.values(gp()).filter(function(p){return p>=3}).length;document.getElementById('sk').innerText='🔥'+s.streak}
+function flip(){var b=document.getElementById('bk');F=!F;if(F)b.classList.add('show');else b.classList.remove('show')}
+function go(d){if(L.length==0)return;I=(I+d+L.length)%L.length;dr()}
+function sf(c,btn){document.querySelectorAll('.nav button').forEach(function(b){b.className=''});btn.className='sel';CA=c;fl()}
+function rate(lv){var id=L[I].c;var p=gp();p[id]=lv;sp(p);var s=es(gs());s.last=td();s.today[td()]=(s.today[td()]||[]);if(!s.today[td()].includes(id))s.today[td()].push(id);s.total++;s.streak=Math.max(s.streak,1);ss(s);dr();if(lv>=3)st('🎉');setTimeout(function(){go(1)},400)}
+function shuf(){L.sort(function(){return Math.random()-0.5});I=0;dr();st('🎲')}
+document.addEventListener('keydown',function(e){if(e.key=='ArrowLeft')go(-1);else if(e.key=='ArrowRight')go(1);else if(e.key==' '||e.key=='Enter'){e.preventDefault();flip()}else if(e.key>='1'&&e.key<='4')rate(parseInt(e.key)-1)});
+fetch('data/cards.json').then(function(r){return r.json()}).then(function(d){D=d;bn();fl()}).catch(function(e){document.getElementById('ch').innerText='加载失败';console.error(e)});
 </script>
 </body>
 </html>
