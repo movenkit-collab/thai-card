@@ -66,6 +66,11 @@
         .c-mid { background: #28a745; } .c-high { background: #dc3545; } 
         .c-low-p { background: #fd7e14; } .c-low-s { background: #e67e22; } 
         .c-vs { background: #6f42c1; } .c-vl { background: #17a2b8; }
+        
+        /* 一级Tab */
+        .main-tabs { display: flex; gap: 8px; margin-bottom: 10px; width: 100%; }
+        .main-tab { flex: 1; padding: 10px; border: none; border-radius: 10px; background: #e9ecef; color: #495057; cursor: pointer; font-weight: bold; font-size: 14px; }
+        .main-tab.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
     </style>
 </head>
 <body>
@@ -79,13 +84,35 @@
         <div class="streak">🔥 <span id="s-streak">0</span>天</div>
     </div>
 
-    <div class="filter-nav">
+    <!-- 一级Tab -->
+    <div class="main-tabs">
+        <button class="main-tab active" onclick="switchTab('letter', this)">字母</button>
+        <button class="main-tab" onclick="switchTab('word', this)">单词</button>
+        <button class="main-tab" onclick="switchTab('sentence', this)">句式</button>
+    </div>
+    
+    <!-- 字母二级分类 -->
+    <div class="filter-nav" id="letter-nav">
         <button class="filter-btn active" onclick="setFilter('all', this)">全部</button>
         <button class="filter-btn" onclick="setFilter('mid', this)">中(9)</button>
         <button class="filter-btn" onclick="setFilter('high', this)">高(11)</button>
-        <button class="filter-btn" onclick="setFilter('low-p', this)">孪低(14)</button>
+        <button class="filter-btn" onclick="setFilter('low-p', this)">孪低(13)</button>
         <button class="filter-btn" onclick="setFilter('low-s', this)">单低(10)</button>
         <button class="filter-btn" onclick="setFilter('v', this)">元音(24)</button>
+    </div>
+    
+    <!-- 单词二级分类（暂时隐藏） -->
+    <div class="filter-nav" id="word-nav" style="display:none">
+        <button class="filter-btn active" onclick="setFilter('all', this)">全部</button>
+        <button class="filter-btn" onclick="setFilter('w1', this)">第5课</button>
+        <button class="filter-btn" onclick="setFilter('w2', this)">第6课</button>
+    </div>
+    
+    <!-- 句式二级分类（暂时隐藏） -->
+    <div class="filter-nav" id="sentence-nav" style="display:none">
+        <button class="filter-btn active" onclick="setFilter('all', this)">全部</button>
+        <button class="filter-btn" onclick="setFilter('s1', this)">问候</button>
+        <button class="filter-btn" onclick="setFilter('s2', this)">日常</button>
     </div>
 
     <div class="card-area" onclick="flip()">
@@ -221,6 +248,10 @@ const data = [
 let currentCards = [...data];
 let idx = 0;
 
+// 单词和句式数据（待补充）
+let wordsData = [];
+let sentencesData = [];
+
 function render() {
     const item = currentCards[idx];
     document.getElementById('card').classList.remove('flipped');
@@ -247,10 +278,44 @@ function render() {
 function flip() { document.getElementById('card').classList.toggle('flipped'); }
 function next() { idx = (idx + 1) % currentCards.length; render(); }
 function prev() { idx = (idx - 1 + currentCards.length) % currentCards.length; render(); }
+
+// Tab切换
+let currentTab = 'letter';
+function switchTab(tab, btn) {
+    currentTab = tab;
+    document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    // 隐藏所有二级导航
+    document.getElementById('letter-nav').style.display = 'none';
+    document.getElementById('word-nav').style.display = 'none';
+    document.getElementById('sentence-nav').style.display = 'none';
+    
+    // 显示对应二级导航
+    document.getElementById(tab + '-nav').style.display = 'flex';
+    
+    // 重置筛选
+    document.querySelectorAll('#' + tab + '-nav .filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelector('#' + tab + '-nav .filter-btn').classList.add('active');
+    
+    // 切换数据源
+    if (tab === 'letter') {
+        currentCards = [...data];
+    } else if (tab === 'word') {
+        currentCards = wordsData || [];
+    } else if (tab === 'sentence') {
+        currentCards = sentencesData || [];
+    }
+    idx = 0;
+    render();
+}
+
 function setFilter(cat, btn) {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    currentCards = (cat === 'all') ? [...data] : data.filter(i => i.cat === cat || (cat==='v' && i.cat==='v'));
+    
+    let sourceData = currentTab === 'letter' ? data : (currentTab === 'word' ? wordsData : sentencesData) || [];
+    currentCards = (cat === 'all') ? [...sourceData] : sourceData.filter(i => i.cat === cat);
     idx = 0; render();
 }
 function doShuffle() { currentCards.sort(() => Math.random() - 0.5); idx = 0; render(); }
