@@ -71,6 +71,10 @@
         .main-tabs { display: flex; gap: 8px; margin-bottom: 10px; width: 100%; }
         .main-tab { flex: 1; padding: 10px; border: none; border-radius: 10px; background: #e9ecef; color: #495057; cursor: pointer; font-weight: bold; font-size: 14px; }
         .main-tab.active { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        
+        /* 发音按钮 */
+        .speak-btn { position: absolute; top: 12px; right: 12px; background: none; border: none; font-size: 22px; cursor: pointer; padding: 4px; border-radius: 50%; transition: transform 0.1s; }
+        .speak-btn:active { transform: scale(0.85); }
     </style>
 </head>
 <body>
@@ -119,6 +123,7 @@
         <div class="card" id="card">
             <div class="face front">
                 <span id="label" class="tag"></span>
+                <button class="speak-btn" onclick="event.stopPropagation();speakCurrent()">🔊</button>
                 <div class="main-char" id="f-char">ก</div>
             </div>
             <div class="face back">
@@ -319,6 +324,18 @@ function setFilter(cat, btn) {
     idx = 0; render();
 }
 function doShuffle() { currentCards.sort(() => Math.random() - 0.5); idx = 0; render(); }
+
+// 发音功能
+function speakCurrent() {
+    const item = currentCards[idx];
+    if (!item) return;
+    const text = item.c.replace(/◌/g, '');  // 去掉占位符
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.lang = 'th-TH';
+    utt.rate = 0.8;
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utt);
+}
 
 // 本地存储
 const STORAGE_KEY = 'thaicard_progress';
