@@ -3,45 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>泰语全能系统 - 2026专业版</title>
+    <title>泰语全量学习系统 - 校准版</title>
     <style>
         :root {
             --mid: #1abc9c; --high: #e74c3c; --low-p: #f39c12; 
             --low-s: #d35400; --vowel: #9b59b6; --spec: #34495e;
         }
         body { font-family: 'Leelawadee UI', sans-serif; background: #f4f7f9; margin: 0; display: flex; flex-direction: column; align-items: center; padding-bottom: 50px; }
-        
-        /* 导航栏优化 */
         .nav-header { position: sticky; top: 0; background: white; width: 100%; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 100; padding: 10px 0; display: flex; flex-direction: column; align-items: center; }
         .filter-group { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; max-width: 500px; padding: 5px; }
-        .btn { padding: 8px 12px; border: 1px solid #eee; border-radius: 20px; background: white; font-size: 12px; cursor: pointer; transition: 0.2s; }
-        .btn.active { color: white; border-color: transparent; }
-        
-        /* 卡片样式 */
-        .stage { perspective: 1000px; width: 340px; height: 420px; margin-top: 20px; }
+        .btn { padding: 8px 12px; border: 1px solid #eee; border-radius: 20px; background: white; font-size: 12px; cursor: pointer; }
+        .btn.active { background: #007aff; color: white; border-color: transparent; }
+        .stage { perspective: 1000px; width: 340px; height: 380px; margin-top: 20px; }
         .card { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; }
         .card.flipped { transform: rotateY(180deg); }
         .face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
         .back { transform: rotateY(180deg); background: #fdfdfd; }
-        
-        /* 卡片内容 */
         .badge { position: absolute; top: 20px; left: 20px; padding: 4px 12px; border-radius: 10px; color: white; font-size: 12px; font-weight: bold; }
-        .char { font-size: 110px; color: #333; margin: 10px 0; }
+        .char { font-size: 110px; color: #333; }
         .ipa { font-size: 36px; color: #007aff; font-weight: 600; }
-        .meta { font-size: 16px; color: #888; margin-top: 10px; }
-        
-        /* 配对展示区域 */
-        .pair-box { margin-top: 20px; width: 340px; background: white; border-radius: 15px; padding: 15px; box-sizing: border-box; border: 1px dashed #ccc; }
-        .pair-title { font-size: 12px; color: #999; margin-bottom: 8px; text-align: center; }
-        .pair-content { display: flex; justify-content: center; gap: 20px; font-size: 24px; color: #555; }
-        .pair-item { display: flex; flex-direction: column; align-items: center; }
-        .pair-label { font-size: 10px; color: #bbb; }
-
-        /* 底部控制 */
-        .controls { display: flex; gap: 15px; margin-top: 25px; }
-        .ctrl-btn { padding: 12px 30px; border-radius: 25px; border: none; background: #007aff; color: white; font-weight: bold; box-shadow: 0 4px 10px rgba(0,122,255,0.3); }
-        
-        /* 分类颜色设定 */
+        .pair-box { margin-top: 20px; width: 340px; background: white; border-radius: 15px; padding: 15px; border: 1px dashed #ccc; min-height: 80px; }
+        .pair-title { font-size: 11px; color: #999; margin-bottom: 8px; text-align: center; }
+        .pair-content { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .p-item { display: flex; flex-direction: column; align-items: center; font-size: 18px; color: #666; }
+        .p-label { font-size: 9px; color: #aaa; }
+        .controls { display: flex; gap: 15px; margin-top: 20px; }
+        .ctrl-btn { padding: 12px 30px; border-radius: 25px; border: none; background: #007aff; color: white; font-weight: bold; }
         .bg-mid { background-color: var(--mid); } .bg-high { background-color: var(--high); }
         .bg-low-p { background-color: var(--low-p); } .bg-low-s { background-color: var(--low-s); }
         .bg-v { background-color: var(--vowel); } .bg-spec { background-color: var(--spec); }
@@ -52,13 +39,13 @@
 <div class="nav-header">
     <div class="filter-group">
         <button class="btn active" onclick="filterData('all', this)">全部</button>
-        <button class="btn" onclick="filterData('mid', this)" style="border-bottom: 3px solid var(--mid)">中辅(9)</button>
-        <button class="btn" onclick="filterData('high', this)" style="border-bottom: 3px solid var(--high)">高辅(11)</button>
-        <button class="btn" onclick="filterData('low-p', this)" style="border-bottom: 3px solid var(--low-p)">成对低(14)</button>
-        <button class="btn" onclick="filterData('low-s', this)" style="border-bottom: 3px solid var(--low-s)">单低(10)</button>
-        <button class="btn" onclick="filterData('vowel', this)" style="border-bottom: 3px solid var(--vowel)">元音</button>
-        <button class="btn" onclick="filterData('spec', this)" style="border-bottom: 3px solid var(--spec)">特殊/数字</button>
+        <button class="btn" onclick="filterData('mid', this)">中(9)</button>
+        <button class="btn" onclick="filterData('high', this)">高(11)</button>
+        <button class="btn" onclick="filterData('low-p', this)">成对低(14)</button>
+        <button class="btn" onclick="filterData('low-s', this)">单低(10)</button>
+        <button class="btn" onclick="filterData('vowel', this)">元音</button>
     </div>
+    <div id="progress" style="font-size: 12px; color: #999; margin-top: 5px;">进度: 1 / 100</div>
 </div>
 
 <div class="stage" onclick="document.getElementById('card').classList.toggle('flipped')">
@@ -66,20 +53,18 @@
         <div class="face front">
             <div id="badge" class="badge">分类</div>
             <div id="char" class="char">ก</div>
-            <div class="meta">点击翻转查看发音</div>
         </div>
         <div class="face back">
             <div id="ipa" class="ipa">k</div>
-            <div id="meaning" class="meta">泰文名称: Kor Kai</div>
-            <div id="kbd" class="meta" style="font-size: 12px; background: #eee; padding: 2px 8px; border-radius: 4px;">键盘: D</div>
+            <div id="meaning" style="color:#888; margin: 10px 0;">-</div>
+            <div id="kbd" style="font-size:12px; color:#aaa;">键盘: -</div>
         </div>
     </div>
 </div>
 
 <div class="pair-box">
-    <div class="pair-title">关联配对 (同音字母 / 长短元音)</div>
-    <div id="pair-display" class="pair-content">
-        </div>
+    <div class="pair-title" id="pair-title">关联配对 (同音字母 / 对元音)</div>
+    <div id="pair-display" class="pair-content"></div>
 </div>
 
 <div class="controls">
@@ -89,119 +74,114 @@
 
 <script>
 const database = [
-    // --- 中辅音 (Middle) ---
-    { c: 'ก', p: 'k', n: 'Kor Kai', cat: 'mid', k: 'd', pair: [] },
-    { c: 'จ', p: 'c', n: 'Jor Jan', cat: 'mid', k: '0', pair: [] },
-    { c: 'ด', p: 'd', n: 'Dor Dek', cat: 'mid', k: 'f', pair: ['ฎ'] },
-    { c: 'ฎ', p: 'd', n: 'Dor Cha-da', cat: 'mid', k: 'E', pair: ['ด'] },
-    { c: 'ต', p: 't', n: 'Tor Tao', cat: 'mid', k: '9', pair: ['ฏ'] },
-    { c: 'ฏ', p: 't', n: 'Tor Pa-tak', cat: 'mid', k: 'D(S)', pair: ['ต'] },
-    { c: 'บ', p: 'b', n: 'Bor Bai-mai', cat: 'mid', k: '[', pair: [] },
-    { c: 'ป', p: 'p', n: 'Por Pla', cat: 'mid', k: 'x', pair: [] },
-    { c: 'อ', p: '?', n: 'Or Ang', cat: 'mid', k: 'v', pair: [] },
+    // 中辅音
+    { c: 'ก', p: 'k', cat: 'mid', k: 'd', group: 'k' },
+    { c: 'จ', p: 'c', cat: 'mid', k: '0', group: 'c' },
+    { c: 'ด', p: 'd', cat: 'mid', k: 'f', group: 'd' },
+    { c: 'ฎ', p: 'd', cat: 'mid', k: 'E', group: 'd' },
+    { c: 'ต', p: 't', cat: 'mid', k: '9', group: 't' },
+    { c: 'ฏ', p: 't', cat: 'mid', k: 'D(S)', group: 't' },
+    { c: 'บ', p: 'b', cat: 'mid', k: '[', group: 'b' },
+    { c: 'ป', p: 'p', cat: 'mid', k: 'x', group: 'p' },
+    { c: 'อ', p: '?', cat: 'mid', k: 'v', group: '?' },
 
-    // --- 高辅音 (High) & 成对低辅音 (Low-P) 配对逻辑 ---
-    { c: 'ข', p: 'kh', n: 'Kho Khai', cat: 'high', k: '-', pair: ['ค','ฅ','ฆ'] },
-    { c: 'ค', p: 'kh', n: 'Kho Khwai', cat: 'low-p', k: '8', pair: ['ข','ฃ'] },
-    { c: 'ฉ', p: 'ch', n: 'Cho Ching', cat: 'high', k: 'C(S)', pair: ['ช','ฌ'] },
-    { c: 'ช', p: 'ch', n: 'Cho Chang', cat: 'low-p', k: '=', pair: ['ฉ'] },
-    { c: 'ถ', p: 'th', n: 'Tho Thung', cat: 'high', k: '5', pair: ['ท','ธ','ฑ','ฒ'] },
-    { c: 'ท', p: 'th', n: 'Tor Ta-han', cat: 'low-p', k: 'm', pair: ['ถ','ฐ'] },
-    { c: 'ผ', p: 'ph', n: 'Pho Phueng', cat: 'high', k: 'z', pair: ['พ','ภ'] },
-    { c: 'พ', p: 'ph', n: 'Po Phan', cat: 'low-p', k: 'p', pair: ['ผ'] },
-    { c: 'ฝ', p: 'f', n: 'Fo Fa', cat: 'high', k: '/', pair: ['ฟ'] },
-    { c: 'ฟ', p: 'f', n: 'Fo Fan', cat: 'low-p', k: 'a', pair: ['ฝ'] },
-    { c: 'ส', p: 's', n: 'So Suea', cat: 'high', k: 'l', pair: ['ซ'] },
-    { c: 'ซ', p: 's', n: 'So So', cat: 'low-p', k: ':', pair: ['ส','ศ','ษ'] },
-    { c: 'ห', p: 'h', n: 'Ho Hip', cat: 'high', k: 's', pair: ['ฮ'] },
-    { c: 'ฮ', p: 'h', n: 'Ho Nok-huk', cat: 'low-p', k: 'V(S)', pair: ['ห'] },
+    // 高辅音
+    { c: 'ข', p: 'kh', cat: 'high', k: '-', group: 'kh' },
+    { c: 'ฃ', p: 'kh*', cat: 'high', k: '\\', group: 'kh' },
+    { c: 'ฉ', p: 'ch', cat: 'high', k: 'C(S)', group: 'ch' },
+    { c: 'ฐ', p: 'th', cat: 'high', k: 'K(S)', group: 'th' },
+    { c: 'ถ', p: 'th', cat: 'high', k: '5', group: 'th' },
+    { c: 'ผ', p: 'ph', cat: 'high', k: 'z', group: 'ph' },
+    { c: 'ฝ', p: 'f', cat: 'high', k: '/', group: 'f' },
+    { c: 'ศ', p: 's', cat: 'high', k: 'L(S)', group: 's' },
+    { c: 'ษ', p: 's', cat: 'high', k: 'K', group: 's' },
+    { c: 'ส', p: 's', cat: 'high', k: 'L', group: 's' },
+    { c: 'ห', p: 'h', cat: 'high', k: 'S', group: 'h' },
 
-    // --- 单低辅音 (Low-S) ---
-    { c: 'ง', p: 'ng', n: 'Ngo Ngu', cat: 'low-s', k: "'", pair: [] },
-    { c: 'น', p: 'n', n: 'No Nu', cat: 'low-s', k: 'o', pair: ['ณ'] },
-    { c: 'ม', p: 'm', n: 'Mo Ma', cat: 'low-s', k: ',', pair: [] },
-    { c: 'ย', p: 'y', n: 'Yo Yak', cat: 'low-s', k: 'p', pair: ['ญ'] },
-    { c: 'ร', p: 'r', n: 'Ro Ruea', cat: 'low-s', k: 'i', pair: [] },
-    { c: 'ล', p: 'l', n: 'Lo Ling', cat: 'low-s', k: ']', pair: ['ฬ'] },
-    { c: 'ว', p: 'w', n: 'Wo Waen', cat: 'low-s', k: ';', pair: [] },
+    // 成对低辅音
+    { c: 'ค', p: 'kh', cat: 'low-p', k: '8', group: 'kh' },
+    { c: 'ฅ', p: 'kh*', cat: 'low-p', k: 'n/a', group: 'kh' },
+    { c: 'ฆ', p: 'kh', cat: 'low-p', k: 'S(S)', group: 'kh' },
+    { c: 'ช', p: 'ch', cat: 'low-p', k: '=', group: 'ch' },
+    { c: 'ซ', p: 's', cat: 'low-p', k: ':', group: 's' },
+    { c: 'ฌ', p: 'ch', cat: 'low-p', k: 'G(S)', group: 'ch' },
+    { c: 'ฑ', p: 'th', cat: 'low-p', k: 'R(S)', group: 'th' },
+    { c: 'ฒ', p: 'th', cat: 'low-p', k: 'T(S)', group: 'th' },
+    { c: 'ท', p: 'th', cat: 'low-p', k: 'm', group: 'th' },
+    { c: 'ธ', p: 'th', cat: 'low-p', k: 'O(S)', group: 'th' },
+    { c: 'พ', p: 'ph', cat: 'low-p', k: 'P', group: 'ph' },
+    { c: 'ฟ', p: 'f', cat: 'low-p', k: 'A', group: 'f' },
+    { c: 'ภ', p: 'ph', cat: 'low-p', k: '4', group: 'ph' },
+    { c: 'ฮ', p: 'h', cat: 'low-p', k: 'V(S)', group: 'h' },
 
-    // --- 元音对 (Vowels: Short vs Long) ---
-    { c: '◌ะ', p: 'a (短)', cat: 'vowel', k: 't', pair: ['◌า'] },
-    { c: '◌า', p: 'aa (长)', cat: 'vowel', k: 'k', pair: ['◌ะ'] },
-    { c: '◌ิ', p: 'i (短)', cat: 'vowel', k: 'b', pair: ['◌ี'] },
-    { c: '◌ี', p: 'ii (长)', cat: 'vowel', k: 'u', pair: ['◌ิ'] },
-    { c: '◌ึ', p: 'ue (短)', cat: 'vowel', k: 'y', pair: ['◌ื'] },
-    { c: '◌ื', p: 'ueue (长)', cat: 'vowel', k: 'n', pair: ['◌ึ'] },
-    { c: '◌ุ', p: 'u (短)', cat: 'vowel', k: '6', pair: ['◌ู'] },
-    { c: '◌ู', p: 'uu (长)', cat: 'vowel', k: '7', pair: ['◌ุ'] },
-    { c: 'เ◌ะ', p: 'e (短)', cat: 'vowel', k: 'g-t', pair: ['เ◌'] },
-    { c: 'เ◌', p: 'ee (长)', cat: 'vowel', k: 'g', pair: ['เ◌ะ'] },
-    { c: 'แ◌ะ', p: 'ae (短)', cat: 'vowel', k: 'c-t', pair: ['แ◌'] },
-    { c: 'แ◌', p: 'aeae (长)', cat: 'vowel', k: 'c', pair: ['แ◌ะ'] },
+    // 单低辅音
+    { c: 'ง', p: 'ng', cat: 'low-s', k: "'", group: 'ng' },
+    { c: 'ญ', p: 'y', cat: 'low-s', k: 'P(S)', group: 'y' },
+    { c: 'ณ', p: 'n', cat: 'low-s', k: 'I(S)', group: 'n' },
+    { c: 'น', p: 'n', cat: 'low-s', k: 'o', group: 'n' },
+    { c: 'ม', p: 'm', cat: 'low-s', k: ',', group: 'm' },
+    { c: 'ย', p: 'y', cat: 'low-s', k: 'p', group: 'y' },
+    { c: 'ร', p: 'r', cat: 'low-s', k: 'i', group: 'r' },
+    { c: 'ล', p: 'l', cat: 'low-s', k: ']', group: 'l' },
+    { c: 'ว', p: 'w', cat: 'low-s', k: ';', group: 'w' },
+    { c: 'ฬ', p: 'l', cat: 'low-s', k: '>(S)', group: 'l' },
 
-    // --- 特殊/符号 ---
-    { c: '◌็', p: '短音符', cat: 'spec', k: 'h', n: 'Mai Tai Khu' },
-    { c: '๑', p: '1', cat: 'spec', k: '1', n: 'Thai Numeral 1' },
-    { c: '๕', p: '5', cat: 'spec', k: '5', n: 'Thai Numeral 5' }
+    // 元音配对
+    { c: '◌ะ', p: 'a (短)', cat: 'vowel', k: 't', group: 'a-pair' },
+    { c: '◌า', p: 'aa (长)', cat: 'vowel', k: 'k', group: 'a-pair' },
+    { c: '◌ิ', p: 'i (短)', cat: 'vowel', k: 'b', group: 'i-pair' },
+    { c: '◌ี', p: 'ii (长)', cat: 'vowel', k: 'u', group: 'i-pair' },
+    { c: '◌ึ', p: 'ue (短)', cat: 'vowel', k: 'y', group: 'ue-pair' },
+    { c: '◌ื', p: 'ueue (长)', cat: 'vowel', k: 'n', group: 'ue-pair' },
+    { c: '◌ุ', p: 'u (短)', cat: 'vowel', k: '6', group: 'u-pair' },
+    { c: '◌ู', p: 'uu (长)', cat: 'vowel', k: '7', group: 'u-pair' }
 ];
 
 let currentList = [...database];
-let index = 0;
+let idx = 0;
 
 function render() {
-    const item = currentList[index];
-    const card = document.getElementById('card');
-    card.classList.remove('flipped');
-    
+    const item = currentList[idx];
+    document.getElementById('card').classList.remove('flipped');
     document.getElementById('char').innerText = item.c;
     document.getElementById('ipa').innerText = item.p;
-    document.getElementById('meaning').innerText = item.n;
     document.getElementById('kbd').innerText = `键盘映射: ${item.k.toUpperCase()}`;
-    
-    // 设置分类标签
+    document.getElementById('progress').innerText = `进度: ${idx + 1} / ${currentList.length}`;
+
     const badge = document.getElementById('badge');
     const catMap = { 
         mid: ['中辅音','bg-mid'], high: ['高辅音','bg-high'], 
-        'low-p': ['成对低音','bg-low-p'], 'low-s': ['单低音','bg-low-s'],
-        vowel: ['元音','bg-v'], spec: ['特殊/数字','bg-spec']
+        'low-p': ['成对低','bg-low-p'], 'low-s': ['单低音','bg-low-s'],
+        vowel: ['元音','bg-v']
     };
     badge.innerText = catMap[item.cat][0];
     badge.className = `badge ${catMap[item.cat][1]}`;
 
-    // 渲染配对区域
-    const pairContainer = document.getElementById('pair-display');
-    pairContainer.innerHTML = '';
-    if(item.pair && item.pair.length > 0) {
-        item.pair.forEach(pChar => {
+    // 核心逻辑：自动查找同组字母（不包含自己）
+    const pairs = database.filter(x => x.group === item.group && x.c !== item.c);
+    const pContainer = document.getElementById('pair-display');
+    pContainer.innerHTML = '';
+    
+    if(pairs.length > 0) {
+        pairs.forEach(p => {
             const div = document.createElement('div');
-            div.className = 'pair-item';
-            div.innerHTML = `<span>${pChar}</span><span class="pair-label">同音/对音</span>`;
-            pairContainer.appendChild(div);
+            div.className = 'p-item';
+            div.innerHTML = `<span>${p.c}</span><span class="p-label">${p.p}</span>`;
+            pContainer.appendChild(div);
         });
     } else {
-        pairContainer.innerHTML = '<span style="font-size:14px;color:#ccc">暂无关联字母</span>';
+        pContainer.innerHTML = '<span style="color:#eee">独立音</span>';
     }
 }
 
-function move(step) {
-    index = (index + step + currentList.length) % currentList.length;
-    render();
-}
-
+function move(s) { idx = (idx + s + currentList.length) % currentList.length; render(); }
 function filterData(cat, btn) {
     document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    
-    if(cat === 'all') currentList = [...database];
-    else currentList = database.filter(i => i.cat === cat);
-    
-    index = 0;
-    render();
+    currentList = cat === 'all' ? [...database] : database.filter(i => i.cat === cat);
+    idx = 0; render();
 }
-
-// 初始化渲染
 render();
 </script>
-
 </body>
 </html>
