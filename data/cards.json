@@ -6,11 +6,11 @@
     },
     {
       "id": "mid",
-      "label": "中辅(9)"
+      "label": "中(9)"
     },
     {
       "id": "high",
-      "label": "高辅(11)"
+      "label": "高(11)"
     },
     {
       "id": "low-p",
@@ -23,10 +23,6 @@
     {
       "id": "vowel",
       "label": "元音"
-    },
-    {
-      "id": "spec",
-      "label": "特殊/数字"
     }
   ],
   "cards": [
@@ -63,10 +59,10 @@
       "k": "F",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ฎ",
-          "lab": "",
-          "cls": ""
+          "lab": "d",
+          "cls": "c-mid"
         }
       ]
     },
@@ -81,10 +77,10 @@
       "k": "E",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ด",
-          "lab": "",
-          "cls": ""
+          "lab": "d",
+          "cls": "c-mid"
         }
       ]
     },
@@ -99,10 +95,10 @@
       "k": "9",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ฏ",
-          "lab": "",
-          "cls": ""
+          "lab": "t",
+          "cls": "c-mid"
         }
       ]
     },
@@ -117,10 +113,10 @@
       "k": "D(S)",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ต",
-          "lab": "",
-          "cls": ""
+          "lab": "t",
+          "cls": "c-mid"
         }
       ]
     },
@@ -168,46 +164,64 @@
       "k": "-",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
+          "char": "ฃ",
+          "lab": "kh*",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
           "char": "ค",
-          "lab": "",
-          "cls": ""
+          "lab": "kh",
+          "cls": "c-low-p"
         },
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ฅ",
-          "lab": "",
-          "cls": ""
+          "lab": "kh*",
+          "cls": "c-low-p"
         },
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ฆ",
-          "lab": "",
-          "cls": ""
+          "lab": "kh",
+          "cls": "c-low-p"
         }
       ]
     },
     {
-      "c": "ค",
-      "cat": "low-p",
-      "t": "成对低音",
-      "b": "c-low-p",
-      "p": "Kho Khwai",
+      "c": "ฃ",
+      "cat": "high",
+      "t": "高辅音",
+      "b": "c-high",
+      "p": "Kho Khuat",
       "selfTone": "",
       "ty": "",
-      "k": "8",
+      "k": "\\",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ข",
-          "lab": "",
-          "cls": ""
+          "lab": "kh",
+          "cls": "c-high"
         },
         {
-          "tag": "同音/对音",
-          "char": "ฃ",
-          "lab": "",
-          "cls": ""
+          "tag": "同组",
+          "char": "ค",
+          "lab": "kh",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ฅ",
+          "lab": "kh*",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ฆ",
+          "lab": "kh",
+          "cls": "c-low-p"
         }
       ]
     },
@@ -222,34 +236,58 @@
       "k": "C(S)",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ช",
-          "lab": "",
-          "cls": ""
+          "lab": "ch",
+          "cls": "c-low-p"
         },
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ฌ",
-          "lab": "",
-          "cls": ""
+          "lab": "ch",
+          "cls": "c-low-p"
         }
       ]
     },
     {
-      "c": "ช",
-      "cat": "low-p",
-      "t": "成对低音",
-      "b": "c-low-p",
-      "p": "Cho Chang",
+      "c": "ฐ",
+      "cat": "high",
+      "t": "高辅音",
+      "b": "c-high",
+      "p": "Tho Thahan",
       "selfTone": "",
       "ty": "",
-      "k": "=",
+      "k": "K(S)",
       "pairs": [
         {
-          "tag": "同音/对音",
-          "char": "ฉ",
-          "lab": "",
-          "cls": ""
+          "tag": "同组",
+          "char": "ถ",
+          "lab": "th",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฑ",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ฒ",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ท",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ธ",
+          "lab": "th",
+          "cls": "c-low-p"
         }
       ]
     },
@@ -264,52 +302,34 @@
       "k": "5",
       "pairs": [
         {
-          "tag": "同音/对音",
-          "char": "ท",
-          "lab": "",
-          "cls": ""
-        },
-        {
-          "tag": "同音/对音",
-          "char": "ธ",
-          "lab": "",
-          "cls": ""
-        },
-        {
-          "tag": "同音/对音",
-          "char": "ฑ",
-          "lab": "",
-          "cls": ""
-        },
-        {
-          "tag": "同音/对音",
-          "char": "ฒ",
-          "lab": "",
-          "cls": ""
-        }
-      ]
-    },
-    {
-      "c": "ท",
-      "cat": "low-p",
-      "t": "成对低音",
-      "b": "c-low-p",
-      "p": "Tor Ta-han",
-      "selfTone": "",
-      "ty": "",
-      "k": "M",
-      "pairs": [
-        {
-          "tag": "同音/对音",
-          "char": "ถ",
-          "lab": "",
-          "cls": ""
-        },
-        {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ฐ",
-          "lab": "",
-          "cls": ""
+          "lab": "th",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฑ",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ฒ",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ท",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ธ",
+          "lab": "th",
+          "cls": "c-low-p"
         }
       ]
     },
@@ -324,34 +344,16 @@
       "k": "Z",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "พ",
-          "lab": "",
-          "cls": ""
+          "lab": "ph",
+          "cls": "c-low-p"
         },
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ภ",
-          "lab": "",
-          "cls": ""
-        }
-      ]
-    },
-    {
-      "c": "พ",
-      "cat": "low-p",
-      "t": "成对低音",
-      "b": "c-low-p",
-      "p": "Po Phan",
-      "selfTone": "",
-      "ty": "",
-      "k": "P",
-      "pairs": [
-        {
-          "tag": "同音/对音",
-          "char": "ผ",
-          "lab": "",
-          "cls": ""
+          "lab": "ph",
+          "cls": "c-low-p"
         }
       ]
     },
@@ -366,28 +368,70 @@
       "k": "/",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ฟ",
-          "lab": "",
-          "cls": ""
+          "lab": "f",
+          "cls": "c-low-p"
         }
       ]
     },
     {
-      "c": "ฟ",
-      "cat": "low-p",
-      "t": "成对低音",
-      "b": "c-low-p",
-      "p": "Fo Fan",
+      "c": "ศ",
+      "cat": "high",
+      "t": "高辅音",
+      "b": "c-high",
+      "p": "So Sala",
       "selfTone": "",
       "ty": "",
-      "k": "A",
+      "k": "L(S)",
       "pairs": [
         {
-          "tag": "同音/对音",
-          "char": "ฝ",
-          "lab": "",
-          "cls": ""
+          "tag": "同组",
+          "char": "ษ",
+          "lab": "s",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ส",
+          "lab": "s",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ซ",
+          "lab": "s",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ษ",
+      "cat": "high",
+      "t": "高辅音",
+      "b": "c-high",
+      "p": "So Ruesi",
+      "selfTone": "",
+      "ty": "",
+      "k": "K",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ศ",
+          "lab": "s",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ส",
+          "lab": "s",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ซ",
+          "lab": "s",
+          "cls": "c-low-p"
         }
       ]
     },
@@ -402,40 +446,22 @@
       "k": "L",
       "pairs": [
         {
-          "tag": "同音/对音",
-          "char": "ซ",
-          "lab": "",
-          "cls": ""
-        }
-      ]
-    },
-    {
-      "c": "ซ",
-      "cat": "low-p",
-      "t": "成对低音",
-      "b": "c-low-p",
-      "p": "So So",
-      "selfTone": "",
-      "ty": "",
-      "k": ":",
-      "pairs": [
-        {
-          "tag": "同音/对音",
-          "char": "ส",
-          "lab": "",
-          "cls": ""
-        },
-        {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ศ",
-          "lab": "",
-          "cls": ""
+          "lab": "s",
+          "cls": "c-high"
         },
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ษ",
-          "lab": "",
-          "cls": ""
+          "lab": "s",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ซ",
+          "lab": "s",
+          "cls": "c-low-p"
         }
       ]
     },
@@ -450,17 +476,437 @@
       "k": "S",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ฮ",
-          "lab": "",
-          "cls": ""
+          "lab": "h",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ค",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Kho Khwai",
+      "selfTone": "",
+      "ty": "",
+      "k": "8",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ข",
+          "lab": "kh",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฃ",
+          "lab": "kh*",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฅ",
+          "lab": "kh*",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ฆ",
+          "lab": "kh",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ฅ",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Kho Khon",
+      "selfTone": "",
+      "ty": "",
+      "k": "N/A",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ข",
+          "lab": "kh",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฃ",
+          "lab": "kh*",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ค",
+          "lab": "kh",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ฆ",
+          "lab": "kh",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ฆ",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Kho Phakok",
+      "selfTone": "",
+      "ty": "",
+      "k": "S(S)",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ข",
+          "lab": "kh",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฃ",
+          "lab": "kh*",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ค",
+          "lab": "kh",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ฅ",
+          "lab": "kh*",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ช",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Cho Chang",
+      "selfTone": "",
+      "ty": "",
+      "k": "=",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ฉ",
+          "lab": "ch",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฌ",
+          "lab": "ch",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ซ",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "So So",
+      "selfTone": "",
+      "ty": "",
+      "k": ":",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ศ",
+          "lab": "s",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ษ",
+          "lab": "s",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ส",
+          "lab": "s",
+          "cls": "c-high"
+        }
+      ]
+    },
+    {
+      "c": "ฌ",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Cho Choe",
+      "selfTone": "",
+      "ty": "",
+      "k": "G(S)",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ฉ",
+          "lab": "ch",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ช",
+          "lab": "ch",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ฑ",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Thor Thong",
+      "selfTone": "",
+      "ty": "",
+      "k": "R(S)",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ฐ",
+          "lab": "th",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ถ",
+          "lab": "th",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฒ",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ท",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ธ",
+          "lab": "th",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ฒ",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Thor Pho",
+      "selfTone": "",
+      "ty": "",
+      "k": "T(S)",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ฐ",
+          "lab": "th",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ถ",
+          "lab": "th",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฑ",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ท",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ธ",
+          "lab": "th",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ท",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Tor Ta-han",
+      "selfTone": "",
+      "ty": "",
+      "k": "M",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ฐ",
+          "lab": "th",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ถ",
+          "lab": "th",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฑ",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ฒ",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ธ",
+          "lab": "th",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ธ",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Tor Toong",
+      "selfTone": "",
+      "ty": "",
+      "k": "O(S)",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ฐ",
+          "lab": "th",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ถ",
+          "lab": "th",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ฑ",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ฒ",
+          "lab": "th",
+          "cls": "c-low-p"
+        },
+        {
+          "tag": "同组",
+          "char": "ท",
+          "lab": "th",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "พ",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Po Phan",
+      "selfTone": "",
+      "ty": "",
+      "k": "P",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ผ",
+          "lab": "ph",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "ภ",
+          "lab": "ph",
+          "cls": "c-low-p"
+        }
+      ]
+    },
+    {
+      "c": "ฟ",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Fo Fan",
+      "selfTone": "",
+      "ty": "",
+      "k": "A",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ฝ",
+          "lab": "f",
+          "cls": "c-high"
+        }
+      ]
+    },
+    {
+      "c": "ภ",
+      "cat": "low-p",
+      "t": "成对低",
+      "b": "c-low-p",
+      "p": "Pho Sam",
+      "selfTone": "",
+      "ty": "",
+      "k": "4",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ผ",
+          "lab": "ph",
+          "cls": "c-high"
+        },
+        {
+          "tag": "同组",
+          "char": "พ",
+          "lab": "ph",
+          "cls": "c-low-p"
         }
       ]
     },
     {
       "c": "ฮ",
       "cat": "low-p",
-      "t": "成对低音",
+      "t": "成对低",
       "b": "c-low-p",
       "p": "Ho Nok-huk",
       "selfTone": "",
@@ -468,10 +914,10 @@
       "k": "V(S)",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ห",
-          "lab": "",
-          "cls": ""
+          "lab": "h",
+          "cls": "c-high"
         }
       ]
     },
@@ -487,6 +933,42 @@
       "pairs": []
     },
     {
+      "c": "ญ",
+      "cat": "low-s",
+      "t": "单低音",
+      "b": "c-low-s",
+      "p": "Yor Yak",
+      "selfTone": "",
+      "ty": "",
+      "k": "P(S)",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ย",
+          "lab": "y",
+          "cls": "c-low-s"
+        }
+      ]
+    },
+    {
+      "c": "ณ",
+      "cat": "low-s",
+      "t": "单低音",
+      "b": "c-low-s",
+      "p": "No Nen",
+      "selfTone": "",
+      "ty": "",
+      "k": "I(S)",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "น",
+          "lab": "n",
+          "cls": "c-low-s"
+        }
+      ]
+    },
+    {
       "c": "น",
       "cat": "low-s",
       "t": "单低音",
@@ -497,10 +979,10 @@
       "k": "O",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ณ",
-          "lab": "",
-          "cls": ""
+          "lab": "n",
+          "cls": "c-low-s"
         }
       ]
     },
@@ -526,10 +1008,10 @@
       "k": "P",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ญ",
-          "lab": "",
-          "cls": ""
+          "lab": "y",
+          "cls": "c-low-s"
         }
       ]
     },
@@ -555,10 +1037,10 @@
       "k": "]",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "ฬ",
-          "lab": "",
-          "cls": ""
+          "lab": "l",
+          "cls": "c-low-s"
         }
       ]
     },
@@ -574,6 +1056,24 @@
       "pairs": []
     },
     {
+      "c": "ฬ",
+      "cat": "low-s",
+      "t": "单低音",
+      "b": "c-low-s",
+      "p": "Lo Chuang",
+      "selfTone": "",
+      "ty": "",
+      "k": ">(S)",
+      "pairs": [
+        {
+          "tag": "同组",
+          "char": "ล",
+          "lab": "l",
+          "cls": "c-low-s"
+        }
+      ]
+    },
+    {
       "c": "◌ะ",
       "cat": "vowel",
       "t": "元音",
@@ -584,10 +1084,10 @@
       "k": "T",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "◌า",
-          "lab": "",
-          "cls": ""
+          "lab": "aa (长)",
+          "cls": "c-v"
         }
       ]
     },
@@ -602,10 +1102,10 @@
       "k": "K",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "◌ะ",
-          "lab": "",
-          "cls": ""
+          "lab": "a (短)",
+          "cls": "c-v"
         }
       ]
     },
@@ -620,10 +1120,10 @@
       "k": "B",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "◌ี",
-          "lab": "",
-          "cls": ""
+          "lab": "ii (长)",
+          "cls": "c-v"
         }
       ]
     },
@@ -638,10 +1138,10 @@
       "k": "U",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "◌ิ",
-          "lab": "",
-          "cls": ""
+          "lab": "i (短)",
+          "cls": "c-v"
         }
       ]
     },
@@ -656,10 +1156,10 @@
       "k": "Y",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "◌ื",
-          "lab": "",
-          "cls": ""
+          "lab": "ueue (长)",
+          "cls": "c-v"
         }
       ]
     },
@@ -674,10 +1174,10 @@
       "k": "N",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "◌ึ",
-          "lab": "",
-          "cls": ""
+          "lab": "ue (短)",
+          "cls": "c-v"
         }
       ]
     },
@@ -692,10 +1192,10 @@
       "k": "6",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "◌ู",
-          "lab": "",
-          "cls": ""
+          "lab": "uu (长)",
+          "cls": "c-v"
         }
       ]
     },
@@ -710,10 +1210,10 @@
       "k": "7",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "◌ุ",
-          "lab": "",
-          "cls": ""
+          "lab": "u (短)",
+          "cls": "c-v"
         }
       ]
     },
@@ -728,10 +1228,10 @@
       "k": "G-T",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "เ◌",
-          "lab": "",
-          "cls": ""
+          "lab": "ee (长)",
+          "cls": "c-v"
         }
       ]
     },
@@ -746,10 +1246,10 @@
       "k": "G",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "เ◌ะ",
-          "lab": "",
-          "cls": ""
+          "lab": "e (短)",
+          "cls": "c-v"
         }
       ]
     },
@@ -764,10 +1264,10 @@
       "k": "C-T",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "แ◌",
-          "lab": "",
-          "cls": ""
+          "lab": "aeae (长)",
+          "cls": "c-v"
         }
       ]
     },
@@ -782,45 +1282,12 @@
       "k": "C",
       "pairs": [
         {
-          "tag": "同音/对音",
+          "tag": "同组",
           "char": "แ◌ะ",
-          "lab": "",
-          "cls": ""
+          "lab": "ae (短)",
+          "cls": "c-v"
         }
       ]
-    },
-    {
-      "c": "◌็",
-      "cat": "spec",
-      "t": "特殊/数字",
-      "b": "c-spec",
-      "p": "Mai Tai Khu",
-      "selfTone": "",
-      "ty": "",
-      "k": "H",
-      "pairs": []
-    },
-    {
-      "c": "๑",
-      "cat": "spec",
-      "t": "特殊/数字",
-      "b": "c-spec",
-      "p": "Thai Numeral 1",
-      "selfTone": "",
-      "ty": "",
-      "k": "1",
-      "pairs": []
-    },
-    {
-      "c": "๕",
-      "cat": "spec",
-      "t": "特殊/数字",
-      "b": "c-spec",
-      "p": "Thai Numeral 5",
-      "selfTone": "",
-      "ty": "",
-      "k": "5",
-      "pairs": []
     }
   ]
 }
