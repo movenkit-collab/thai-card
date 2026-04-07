@@ -6,23 +6,27 @@
     },
     {
       "id": "mid",
-      "label": "中(9)"
+      "label": "中辅(9)"
     },
     {
       "id": "high",
-      "label": "高(11)"
+      "label": "高辅(11)"
     },
     {
       "id": "low-p",
-      "label": "孪低(13)"
+      "label": "成对低(14)"
     },
     {
       "id": "low-s",
       "label": "单低(10)"
     },
     {
-      "id": "v",
-      "label": "元音(24)"
+      "id": "vowel",
+      "label": "元音"
+    },
+    {
+      "id": "spec",
+      "label": "特殊/数字"
     }
   ],
   "cards": [
@@ -31,9 +35,9 @@
       "cat": "mid",
       "t": "中辅音",
       "b": "c-mid",
-      "p": "Kor",
-      "selfTone": "1声(平)",
-      "ty": "不送气清音",
+      "p": "Kor Kai",
+      "selfTone": "",
+      "ty": "",
       "k": "D",
       "pairs": []
     },
@@ -42,9 +46,9 @@
       "cat": "mid",
       "t": "中辅音",
       "b": "c-mid",
-      "p": "Jor",
-      "selfTone": "1声(平)",
-      "ty": "不送气清音",
+      "p": "Jor Jan",
+      "selfTone": "",
+      "ty": "",
       "k": "0",
       "pairs": []
     },
@@ -53,22 +57,34 @@
       "cat": "mid",
       "t": "中辅音",
       "b": "c-mid",
-      "p": "Dor",
-      "selfTone": "1声(平)",
-      "ty": "浊音",
+      "p": "Dor Dek",
+      "selfTone": "",
+      "ty": "",
       "k": "F",
       "pairs": [
         {
-          "tag": "同音/清浊",
-          "char": "ต",
-          "lab": "中辅-清",
-          "cls": "c-mid"
-        },
-        {
-          "tag": "同音",
+          "tag": "同音/对音",
           "char": "ฎ",
-          "lab": "中辅",
-          "cls": "c-mid"
+          "lab": "",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "c": "ฎ",
+      "cat": "mid",
+      "t": "中辅音",
+      "b": "c-mid",
+      "p": "Dor Cha-da",
+      "selfTone": "",
+      "ty": "",
+      "k": "E",
+      "pairs": [
+        {
+          "tag": "同音/对音",
+          "char": "ด",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -77,81 +93,16 @@
       "cat": "mid",
       "t": "中辅音",
       "b": "c-mid",
-      "p": "Tor",
-      "selfTone": "1声(平)",
-      "ty": "不送气清音",
+      "p": "Tor Tao",
+      "selfTone": "",
+      "ty": "",
       "k": "9",
       "pairs": [
         {
-          "tag": "清浊对应",
-          "char": "ด",
-          "lab": "中辅-浊",
-          "cls": "c-mid"
-        }
-      ]
-    },
-    {
-      "c": "บ",
-      "cat": "mid",
-      "t": "中辅音",
-      "b": "c-mid",
-      "p": "Bor",
-      "selfTone": "1声(平)",
-      "ty": "浊音",
-      "k": "[",
-      "pairs": [
-        {
-          "tag": "清浊对应",
-          "char": "ป",
-          "lab": "中辅-清",
-          "cls": "c-mid"
-        }
-      ]
-    },
-    {
-      "c": "ป",
-      "cat": "mid",
-      "t": "中辅音",
-      "b": "c-mid",
-      "p": "Por",
-      "selfTone": "1声(平)",
-      "ty": "不送气清音",
-      "k": "X",
-      "pairs": [
-        {
-          "tag": "清浊对应",
-          "char": "บ",
-          "lab": "中辅-浊",
-          "cls": "c-mid"
-        }
-      ]
-    },
-    {
-      "c": "อ",
-      "cat": "mid",
-      "t": "中辅音",
-      "b": "c-mid",
-      "p": "Or",
-      "selfTone": "1声(平)",
-      "ty": "零辅音",
-      "k": "V",
-      "pairs": []
-    },
-    {
-      "c": "ฎ",
-      "cat": "mid",
-      "t": "中辅音",
-      "b": "c-mid",
-      "p": "Dor",
-      "selfTone": "1声(平)",
-      "ty": "浊音",
-      "k": "E",
-      "pairs": [
-        {
-          "tag": "同音",
-          "char": "ด",
-          "lab": "中辅",
-          "cls": "c-mid"
+          "tag": "同音/对音",
+          "char": "ฏ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -160,81 +111,145 @@
       "cat": "mid",
       "t": "中辅音",
       "b": "c-mid",
-      "p": "Tor",
-      "selfTone": "1声(平)",
-      "ty": "清音",
+      "p": "Tor Pa-tak",
+      "selfTone": "",
+      "ty": "",
       "k": "D(S)",
       "pairs": [
         {
-          "tag": "同音",
+          "tag": "同音/对音",
           "char": "ต",
-          "lab": "中辅",
-          "cls": "c-mid"
+          "lab": "",
+          "cls": ""
         }
       ]
+    },
+    {
+      "c": "บ",
+      "cat": "mid",
+      "t": "中辅音",
+      "b": "c-mid",
+      "p": "Bor Bai-mai",
+      "selfTone": "",
+      "ty": "",
+      "k": "[",
+      "pairs": []
+    },
+    {
+      "c": "ป",
+      "cat": "mid",
+      "t": "中辅音",
+      "b": "c-mid",
+      "p": "Por Pla",
+      "selfTone": "",
+      "ty": "",
+      "k": "X",
+      "pairs": []
+    },
+    {
+      "c": "อ",
+      "cat": "mid",
+      "t": "中辅音",
+      "b": "c-mid",
+      "p": "Or Ang",
+      "selfTone": "",
+      "ty": "",
+      "k": "V",
+      "pairs": []
     },
     {
       "c": "ข",
       "cat": "high",
       "t": "高辅音",
       "b": "c-high",
-      "p": "Kor",
-      "selfTone": "5声(升)",
-      "ty": "送气清音",
+      "p": "Kho Khai",
+      "selfTone": "",
+      "ty": "",
       "k": "-",
       "pairs": [
         {
-          "tag": "对应低音",
+          "tag": "同音/对音",
           "char": "ค",
-          "lab": "低辅",
-          "cls": "c-low-p"
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ฅ",
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ฆ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
-      "c": "ฃ",
-      "cat": "high",
-      "t": "高辅音",
-      "b": "c-high",
-      "p": "Kor",
-      "selfTone": "5声(升)",
-      "ty": "废弃",
-      "k": "\\",
-      "pairs": []
+      "c": "ค",
+      "cat": "low-p",
+      "t": "成对低音",
+      "b": "c-low-p",
+      "p": "Kho Khwai",
+      "selfTone": "",
+      "ty": "",
+      "k": "8",
+      "pairs": [
+        {
+          "tag": "同音/对音",
+          "char": "ข",
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ฃ",
+          "lab": "",
+          "cls": ""
+        }
+      ]
     },
     {
       "c": "ฉ",
       "cat": "high",
       "t": "高辅音",
       "b": "c-high",
-      "p": "Chor",
-      "selfTone": "5声(升)",
-      "ty": "送气",
+      "p": "Cho Ching",
+      "selfTone": "",
+      "ty": "",
       "k": "C(S)",
       "pairs": [
         {
-          "tag": "对应低音",
+          "tag": "同音/对音",
           "char": "ช",
-          "lab": "低辅",
-          "cls": "c-low-p"
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ฌ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
-      "c": "ฐ",
-      "cat": "high",
-      "t": "高辅音",
-      "b": "c-high",
-      "p": "Tor",
-      "selfTone": "5声(升)",
-      "ty": "送气",
-      "k": "K(S)",
+      "c": "ช",
+      "cat": "low-p",
+      "t": "成对低音",
+      "b": "c-low-p",
+      "p": "Cho Chang",
+      "selfTone": "",
+      "ty": "",
+      "k": "=",
       "pairs": [
         {
-          "tag": "对应低音",
-          "char": "ท",
-          "lab": "低辅",
-          "cls": "c-low-p"
+          "tag": "同音/对音",
+          "char": "ฉ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -243,16 +258,58 @@
       "cat": "high",
       "t": "高辅音",
       "b": "c-high",
-      "p": "Tor",
-      "selfTone": "5声(升)",
-      "ty": "送气",
+      "p": "Tho Thung",
+      "selfTone": "",
+      "ty": "",
       "k": "5",
       "pairs": [
         {
-          "tag": "对应低音",
+          "tag": "同音/对音",
           "char": "ท",
-          "lab": "低辅",
-          "cls": "c-low-p"
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ธ",
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ฑ",
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ฒ",
+          "lab": "",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "c": "ท",
+      "cat": "low-p",
+      "t": "成对低音",
+      "b": "c-low-p",
+      "p": "Tor Ta-han",
+      "selfTone": "",
+      "ty": "",
+      "k": "M",
+      "pairs": [
+        {
+          "tag": "同音/对音",
+          "char": "ถ",
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ฐ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -261,16 +318,40 @@
       "cat": "high",
       "t": "高辅音",
       "b": "c-high",
-      "p": "Por",
-      "selfTone": "5声(升)",
-      "ty": "送气",
+      "p": "Pho Phueng",
+      "selfTone": "",
+      "ty": "",
       "k": "Z",
       "pairs": [
         {
-          "tag": "对应低音",
+          "tag": "同音/对音",
           "char": "พ",
-          "lab": "低辅",
-          "cls": "c-low-p"
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ภ",
+          "lab": "",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "c": "พ",
+      "cat": "low-p",
+      "t": "成对低音",
+      "b": "c-low-p",
+      "p": "Po Phan",
+      "selfTone": "",
+      "ty": "",
+      "k": "P",
+      "pairs": [
+        {
+          "tag": "同音/对音",
+          "char": "ผ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -279,52 +360,34 @@
       "cat": "high",
       "t": "高辅音",
       "b": "c-high",
-      "p": "For",
-      "selfTone": "5声(升)",
-      "ty": "擦音",
+      "p": "Fo Fa",
+      "selfTone": "",
+      "ty": "",
       "k": "/",
       "pairs": [
         {
-          "tag": "对应低音",
+          "tag": "同音/对音",
           "char": "ฟ",
-          "lab": "低辅",
-          "cls": "c-low-p"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
-      "c": "ศ",
-      "cat": "high",
-      "t": "高辅音",
-      "b": "c-high",
-      "p": "Sor",
-      "selfTone": "5声(升)",
-      "ty": "擦音",
-      "k": "L(S)",
+      "c": "ฟ",
+      "cat": "low-p",
+      "t": "成对低音",
+      "b": "c-low-p",
+      "p": "Fo Fan",
+      "selfTone": "",
+      "ty": "",
+      "k": "A",
       "pairs": [
         {
-          "tag": "对应低音",
-          "char": "ซ",
-          "lab": "低辅",
-          "cls": "c-low-p"
-        }
-      ]
-    },
-    {
-      "c": "ษ",
-      "cat": "high",
-      "t": "高辅音",
-      "b": "c-high",
-      "p": "Sor",
-      "selfTone": "5声(升)",
-      "ty": "擦音",
-      "k": "K",
-      "pairs": [
-        {
-          "tag": "对应低音",
-          "char": "ซ",
-          "lab": "低辅",
-          "cls": "c-low-p"
+          "tag": "同音/对音",
+          "char": "ฝ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -333,16 +396,46 @@
       "cat": "high",
       "t": "高辅音",
       "b": "c-high",
-      "p": "Sor",
-      "selfTone": "5声(升)",
-      "ty": "擦音",
+      "p": "So Suea",
+      "selfTone": "",
+      "ty": "",
       "k": "L",
       "pairs": [
         {
-          "tag": "对应低音",
+          "tag": "同音/对音",
           "char": "ซ",
-          "lab": "低辅音",
-          "cls": "c-low-p"
+          "lab": "",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "c": "ซ",
+      "cat": "low-p",
+      "t": "成对低音",
+      "b": "c-low-p",
+      "p": "So So",
+      "selfTone": "",
+      "ty": "",
+      "k": ":",
+      "pairs": [
+        {
+          "tag": "同音/对音",
+          "char": "ส",
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ศ",
+          "lab": "",
+          "cls": ""
+        },
+        {
+          "tag": "同音/对音",
+          "char": "ษ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -351,208 +444,34 @@
       "cat": "high",
       "t": "高辅音",
       "b": "c-high",
-      "p": "Hor",
-      "selfTone": "5声(升)",
-      "ty": "擦音",
+      "p": "Ho Hip",
+      "selfTone": "",
+      "ty": "",
       "k": "S",
       "pairs": [
         {
-          "tag": "对应低音",
+          "tag": "同音/对音",
           "char": "ฮ",
-          "lab": "低辅",
-          "cls": "c-low-p"
+          "lab": "",
+          "cls": ""
         }
       ]
-    },
-    {
-      "c": "ค",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Kor",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "8",
-      "pairs": [
-        {
-          "tag": "对应高音",
-          "char": "ข",
-          "lab": "高辅",
-          "cls": "c-high"
-        }
-      ]
-    },
-    {
-      "c": "ฆ",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Kor",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "S(S)",
-      "pairs": []
-    },
-    {
-      "c": "ช",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Chor",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "=",
-      "pairs": [
-        {
-          "tag": "对应高音",
-          "char": "ฉ",
-          "lab": "高辅",
-          "cls": "c-high"
-        }
-      ]
-    },
-    {
-      "c": "ฌ",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Chor",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "G(S)",
-      "pairs": []
-    },
-    {
-      "c": "ซ",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Sor",
-      "selfTone": "1声(平)",
-      "ty": "擦音",
-      "k": ":",
-      "pairs": [
-        {
-          "tag": "对应高音",
-          "char": "ส",
-          "lab": "高辅",
-          "cls": "c-high"
-        }
-      ]
-    },
-    {
-      "c": "ฑ",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Tor",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "R(S)",
-      "pairs": []
-    },
-    {
-      "c": "ฒ",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Tor",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "T(S)",
-      "pairs": []
-    },
-    {
-      "c": "ท",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Tor",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "M",
-      "pairs": [
-        {
-          "tag": "对应高音",
-          "char": "ถ",
-          "lab": "高辅",
-          "cls": "c-high"
-        }
-      ]
-    },
-    {
-      "c": "ธ",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Tor",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "O(S)",
-      "pairs": []
-    },
-    {
-      "c": "พ",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Por",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "P",
-      "pairs": [
-        {
-          "tag": "对应高音",
-          "char": "ผ",
-          "lab": "高辅",
-          "cls": "c-high"
-        }
-      ]
-    },
-    {
-      "c": "ฟ",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "For",
-      "selfTone": "1声(平)",
-      "ty": "擦音",
-      "k": "A",
-      "pairs": [
-        {
-          "tag": "对应高音",
-          "char": "ฝ",
-          "lab": "高辅",
-          "cls": "c-high"
-        }
-      ]
-    },
-    {
-      "c": "ภ",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Por",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "4",
-      "pairs": []
     },
     {
       "c": "ฮ",
       "cat": "low-p",
-      "t": "孪低音",
+      "t": "成对低音",
       "b": "c-low-p",
-      "p": "Hor",
-      "selfTone": "1声(平)",
-      "ty": "擦音",
+      "p": "Ho Nok-huk",
+      "selfTone": "",
+      "ty": "",
       "k": "V(S)",
       "pairs": [
         {
-          "tag": "对应高音",
+          "tag": "同音/对音",
           "char": "ห",
-          "lab": "高辅",
-          "cls": "c-high"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -561,70 +480,27 @@
       "cat": "low-s",
       "t": "单低音",
       "b": "c-low-s",
-      "p": "Ngor",
-      "selfTone": "1声(平)",
-      "ty": "鼻音",
+      "p": "Ngo Ngu",
+      "selfTone": "",
+      "ty": "",
       "k": "'",
-      "pairs": [
-        {
-          "tag": "变高辅",
-          "char": "หง",
-          "lab": "高组",
-          "cls": "c-high"
-        }
-      ]
-    },
-    {
-      "c": "ญ",
-      "cat": "low-s",
-      "t": "单低音",
-      "b": "c-low-s",
-      "p": "Yor",
-      "selfTone": "1声(平)",
-      "ty": "鼻音",
-      "k": "P(S)",
-      "pairs": [
-        {
-          "tag": "变高辅",
-          "char": "หญ",
-          "lab": "高组",
-          "cls": "c-high"
-        }
-      ]
-    },
-    {
-      "c": "ณ",
-      "cat": "low-s",
-      "t": "单低音",
-      "b": "c-low-s",
-      "p": "Nor",
-      "selfTone": "1声(平)",
-      "ty": "鼻音",
-      "k": "I(S)",
-      "pairs": [
-        {
-          "tag": "同音",
-          "char": "น",
-          "lab": "单低",
-          "cls": "c-low-s"
-        }
-      ]
+      "pairs": []
     },
     {
       "c": "น",
       "cat": "low-s",
       "t": "单低音",
       "b": "c-low-s",
-      "p": "Nor",
-      "selfTone": "1声(平)",
-      "ty": "鼻音",
+      "p": "No Nu",
+      "selfTone": "",
+      "ty": "",
       "k": "O",
       "pairs": [
         {
-          "tag": "变高辅",
-          "char": "หน",
-          "lab": "高组",
-          "cls": "c-high"
+          "tag": "同音/对音",
+          "char": "ณ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -633,34 +509,27 @@
       "cat": "low-s",
       "t": "单低音",
       "b": "c-low-s",
-      "p": "Mor",
-      "selfTone": "1声(平)",
-      "ty": "鼻音",
+      "p": "Mo Ma",
+      "selfTone": "",
+      "ty": "",
       "k": ",",
-      "pairs": [
-        {
-          "tag": "变高辅",
-          "char": "หม",
-          "lab": "高组",
-          "cls": "c-high"
-        }
-      ]
+      "pairs": []
     },
     {
       "c": "ย",
       "cat": "low-s",
       "t": "单低音",
       "b": "c-low-s",
-      "p": "Yor",
-      "selfTone": "1声(平)",
-      "ty": "半元音",
+      "p": "Yo Yak",
+      "selfTone": "",
+      "ty": "",
       "k": "P",
       "pairs": [
         {
-          "tag": "变高辅",
-          "char": "หย",
-          "lab": "高组",
-          "cls": "c-high"
+          "tag": "同音/对音",
+          "char": "ญ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -669,34 +538,27 @@
       "cat": "low-s",
       "t": "单低音",
       "b": "c-low-s",
-      "p": "Ror",
-      "selfTone": "1声(平)",
-      "ty": "弹舌音",
+      "p": "Ro Ruea",
+      "selfTone": "",
+      "ty": "",
       "k": "I",
-      "pairs": [
-        {
-          "tag": "变高辅",
-          "char": "หร",
-          "lab": "高组",
-          "cls": "c-high"
-        }
-      ]
+      "pairs": []
     },
     {
       "c": "ล",
       "cat": "low-s",
       "t": "单低音",
       "b": "c-low-s",
-      "p": "Lor",
-      "selfTone": "1声(平)",
-      "ty": "边音",
+      "p": "Lo Ling",
+      "selfTone": "",
+      "ty": "",
       "k": "]",
       "pairs": [
         {
-          "tag": "变高辅",
-          "char": "หล",
-          "lab": "高组",
-          "cls": "c-high"
+          "tag": "同音/对音",
+          "char": "ฬ",
+          "lab": "",
+          "cls": ""
         }
       ]
     },
@@ -705,436 +567,259 @@
       "cat": "low-s",
       "t": "单低音",
       "b": "c-low-s",
-      "p": "Wor",
-      "selfTone": "1声(平)",
-      "ty": "半元音",
+      "p": "Wo Waen",
+      "selfTone": "",
+      "ty": "",
       "k": ";",
-      "pairs": [
-        {
-          "tag": "变高辅",
-          "char": "หว",
-          "lab": "高组",
-          "cls": "c-high"
-        }
-      ]
+      "pairs": []
     },
     {
       "c": "◌ะ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "a",
-      "selfTone": "促音",
-      "ty": "单元音",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
       "k": "T",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "◌า",
-          "lab": "长元",
-          "cls": "c-vl"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "◌า",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "aa",
-      "selfTone": "舒声",
-      "ty": "单元音",
-      "k": "1",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
+      "k": "K",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "◌ะ",
-          "lab": "短元",
-          "cls": "c-vs"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "◌ิ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "i",
-      "selfTone": "促音",
-      "ty": "单元音",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
       "k": "B",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "◌ี",
-          "lab": "长元",
-          "cls": "c-vl"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "◌ี",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "ii",
-      "selfTone": "舒声",
-      "ty": "单元音",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
       "k": "U",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "◌ิ",
-          "lab": "短元",
-          "cls": "c-vs"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "◌ึ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "ue",
-      "selfTone": "促音",
-      "ty": "单元音",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
       "k": "Y",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "◌ื",
-          "lab": "长元",
-          "cls": "c-vl"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "◌ื",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "ueue",
-      "selfTone": "舒声",
-      "ty": "单元音",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
       "k": "N",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "◌ึ",
-          "lab": "短元",
-          "cls": "c-vs"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "◌ุ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "u",
-      "selfTone": "促音",
-      "ty": "单元音",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
       "k": "6",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "◌ู",
-          "lab": "长元",
-          "cls": "c-vl"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "◌ู",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "uu",
-      "selfTone": "舒声",
-      "ty": "单元音",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
       "k": "7",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "◌ุ",
-          "lab": "短元",
-          "cls": "c-vs"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "เ◌ะ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "e",
-      "selfTone": "促音",
-      "ty": "单元音",
-      "k": "G+T",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
+      "k": "G-T",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "เ◌",
-          "lab": "长元",
-          "cls": "c-vl"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "เ◌",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "ee",
-      "selfTone": "舒声",
-      "ty": "单元音",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
       "k": "G",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "เ◌ะ",
-          "lab": "短元",
-          "cls": "c-vs"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "แ◌ะ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "ae",
-      "selfTone": "促音",
-      "ty": "单元音",
-      "k": "C+T",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
+      "k": "C-T",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "แ◌",
-          "lab": "长元",
-          "cls": "c-vl"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
       "c": "แ◌",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "aeae",
-      "selfTone": "舒声",
-      "ty": "单元音",
+      "cat": "vowel",
+      "t": "元音",
+      "b": "c-v",
+      "p": "",
+      "selfTone": "",
+      "ty": "",
       "k": "C",
       "pairs": [
         {
-          "tag": "对照",
+          "tag": "同音/对音",
           "char": "แ◌ะ",
-          "lab": "短元",
-          "cls": "c-vs"
+          "lab": "",
+          "cls": ""
         }
       ]
     },
     {
-      "c": "โ◌ะ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "o",
-      "selfTone": "促音",
-      "ty": "单元音",
-      "k": "F+T",
-      "pairs": [
-        {
-          "tag": "对照",
-          "char": "โ◌",
-          "lab": "长元",
-          "cls": "c-vl"
-        }
-      ]
-    },
-    {
-      "c": "โ◌",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "oo",
-      "selfTone": "舒声",
-      "ty": "单元音",
-      "k": "F",
-      "pairs": [
-        {
-          "tag": "对照",
-          "char": "โ◌ะ",
-          "lab": "短元",
-          "cls": "c-vs"
-        }
-      ]
-    },
-    {
-      "c": "เ◌าะ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "aw",
-      "selfTone": "促音",
-      "ty": "单元音",
-      "k": "G+1+T",
-      "pairs": [
-        {
-          "tag": "对照",
-          "char": "◌อ",
-          "lab": "长元",
-          "cls": "c-vl"
-        }
-      ]
-    },
-    {
-      "c": "◌อ",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "awaw",
-      "selfTone": "舒声",
-      "ty": "单元音",
-      "k": "V",
-      "pairs": [
-        {
-          "tag": "对照",
-          "char": "เ◌าะ",
-          "lab": "短元",
-          "cls": "c-vs"
-        }
-      ]
-    },
-    {
-      "c": "เ◌อะ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "oe",
-      "selfTone": "促音",
-      "ty": "单元音",
-      "k": "G+N+T",
-      "pairs": [
-        {
-          "tag": "对照",
-          "char": "เ◌อ",
-          "lab": "长元",
-          "cls": "c-vl"
-        }
-      ]
-    },
-    {
-      "c": "เ◌อ",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "oeoe",
-      "selfTone": "舒声",
-      "ty": "单元音",
-      "k": "G+N",
-      "pairs": [
-        {
-          "tag": "对照",
-          "char": "เ◌อะ",
-          "lab": "短元",
-          "cls": "c-vs"
-        }
-      ]
-    },
-    {
-      "c": "เ◌ียะ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "ia",
-      "selfTone": "促音",
-      "ty": "复合元音",
-      "k": "G+U+T",
+      "c": "◌็",
+      "cat": "spec",
+      "t": "特殊/数字",
+      "b": "c-spec",
+      "p": "Mai Tai Khu",
+      "selfTone": "",
+      "ty": "",
+      "k": "H",
       "pairs": []
     },
     {
-      "c": "เ◌ีย",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "iia",
-      "selfTone": "舒声",
-      "ty": "复合元音",
-      "k": "G+U",
+      "c": "๑",
+      "cat": "spec",
+      "t": "特殊/数字",
+      "b": "c-spec",
+      "p": "Thai Numeral 1",
+      "selfTone": "",
+      "ty": "",
+      "k": "1",
       "pairs": []
     },
     {
-      "c": "เ◌ือะ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "uea",
-      "selfTone": "促音",
-      "ty": "复合元音",
-      "k": "G+N+T",
-      "pairs": []
-    },
-    {
-      "c": "เ◌ือ",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "uuea",
-      "selfTone": "舒声",
-      "ty": "复合元音",
-      "k": "G+N",
-      "pairs": []
-    },
-    {
-      "c": "◌ัวะ",
-      "cat": "v",
-      "t": "短元音",
-      "b": "c-vs",
-      "p": "ua",
-      "selfTone": "促音",
-      "ty": "复合元音",
-      "k": "M+T",
-      "pairs": []
-    },
-    {
-      "c": "◌ัว",
-      "cat": "v",
-      "t": "长元音",
-      "b": "c-vl",
-      "p": "uua",
-      "selfTone": "舒声",
-      "ty": "复合元音",
-      "k": "M",
-      "pairs": []
-    },
-    {
-      "c": "ฅ",
-      "cat": "low-p",
-      "t": "孪低音",
-      "b": "c-low-p",
-      "p": "Kor",
-      "selfTone": "1声(平)",
-      "ty": "送气",
-      "k": "Q",
-      "pairs": [
-        {
-          "tag": "对应高音",
-          "char": "ข",
-          "lab": "高辅",
-          "cls": "c-high"
-        }
-      ]
-    },
-    {
-      "c": "ฬ",
-      "cat": "low-s",
-      "t": "单低音",
-      "b": "c-low-s",
-      "p": "Lor",
-      "selfTone": "1声(平)",
-      "ty": "边音",
-      "k": ">(S)",
+      "c": "๕",
+      "cat": "spec",
+      "t": "特殊/数字",
+      "b": "c-spec",
+      "p": "Thai Numeral 5",
+      "selfTone": "",
+      "ty": "",
+      "k": "5",
       "pairs": []
     }
   ]
